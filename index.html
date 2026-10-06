@@ -371,6 +371,15 @@
     .footer-dev{font-size:.76rem}
     @media(max-width:760px){.dev-grid{grid-template-columns:1fr}}
 
+    /* MEDIA SOSIAL */
+    .social-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;max-width:760px}
+    .social-card{display:flex;flex-direction:column;align-items:flex-start;gap:18px}
+    .social-top{display:flex;align-items:center;gap:14px}
+    .social-top .org-avatar svg{width:24px;height:24px}
+    .social-card .btn{width:100%}
+    .btn-disabled{opacity:.45;pointer-events:none;cursor:not-allowed}
+    @media(max-width:760px){.social-grid{grid-template-columns:1fr}}
+
     /* ANIMASI MASUK */
     @keyframes fadeUp{
       from{opacity:0;transform:translateY(30px)}
@@ -489,6 +498,7 @@
       <a href="#kegiatan">Kegiatan</a>
       <a href="#fasilitas">Fasilitas</a>
       <a href="#rules">Rules</a>
+      <a href="#sosmed">Sosmed</a>
       <a href="pesan.html" class="nav-cta">Kirim Pesan</a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Menu">
@@ -502,6 +512,7 @@
     <a href="#kegiatan">Kegiatan</a>
     <a href="#fasilitas">Fasilitas</a>
     <a href="#rules">Rules</a>
+    <a href="#sosmed">Sosmed</a>
     <a href="pesan.html" class="nav-cta">Kirim Pesan</a>
   </div>
 
@@ -688,8 +699,36 @@
     </div>
   </section>
 
+  <section id="sosmed">
+    <div class="section-label">// 05 / sosmed</div>
+    <h2>Media Sosial Kelas</h2>
+    <p class="section-desc">Ikuti kabar terbaru dan dokumentasi kegiatan XII TJKT lewat media sosial kami.</p>
+    <div class="social-grid">
+      <div class="card social-card">
+        <div class="social-top">
+          <div class="org-avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </div>
+          <div><div class="card-label">Instagram</div><div class="card-title">@xii_tejekatee</div></div>
+        </div>
+        <a href="https://www.instagram.com/xii_tejekatee?utm_source=ig_web_button_share_sheet&amp;stkn=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Instagram</a>
+      </div>
+
+      <div class="card social-card">
+        <div class="social-top">
+          <div class="org-avatar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21l1.65-4.9A8.5 8.5 0 1 1 8 19.4L3 21z"/><path d="M9 9.5c.3 2.2 2.3 4.2 4.5 4.5l1.2-1.2-1.8-1-.8.6a3 3 0 0 1-1.5-1.5l.6-.8-1-1.8L9 9.5z"/></svg>
+          </div>
+          <div><div class="card-label">WhatsApp</div><div class="card-title">Saluran WhatsApp XII TJKT</div></div>
+        </div>
+        <!-- ISI LINK SALURAN WHATSAPP di href, lalu HAPUS kata "btn-disabled" dari class -->
+        <a href="" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-disabled" aria-disabled="true">Saluran WhatsApp (segera hadir)</a>
+      </div>
+    </div>
+  </section>
+
   <section id="developer">
-    <div class="section-label">// 05 / developer</div>
+    <div class="section-label">// 06 / developer</div>
     <h2>Pengembang Website</h2>
     <p class="section-desc">Website ini dibuat oleh dua teman sekelas kita.</p>
     <div class="dev-grid">
@@ -705,7 +744,7 @@
   </section>
 
   <section id="pesan" class="messages-section">
-    <div class="section-label">// 06 / pesan</div>
+    <div class="section-label">// 07 / pesan</div>
     <div class="messages-header">
       <h2>Pesan Masuk</h2>
       <span class="msg-count" id="msgCount">0 pesan</span>
