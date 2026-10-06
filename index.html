@@ -33,7 +33,6 @@
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
 
-    /* Background global */
     .bg-fixed {
       position: fixed; inset: 0; z-index: -2;
       background: url('background.jpg') center/cover no-repeat;
@@ -182,7 +181,6 @@
     .bday-item strong { display: block; font-size: 0.92rem; margin-bottom: 3px; }
     .bday-item span { font-size: 0.78rem; color: var(--muted); }
 
-    /* PESAN DI HALAMAN UTAMA */
     .messages-section { padding-bottom: 40px; }
     .messages-header {
       display: flex; align-items: center; justify-content: space-between;
@@ -391,7 +389,6 @@
     </div>
   </section>
 
-  <!-- SEMUA PESAN MUNCUL DI SINI -->
   <section id="pesan" class="messages-section">
     <div class="section-label">// 05 / pesan</div>
     <div class="messages-header">
@@ -422,59 +419,77 @@
   </footer>
 
   <script>
-    const STORAGE_KEY = 'xii_tjkt_pesan_v2';
+    // ========== GANTI DENGAN URL APPS SCRIPT KAMU ==========
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1CXmxf_9_hhfLzEjghtnLz19tKrxbMbZ2d72-FLzKex1HyhQHygJKDHeSWltYIZwm/exec';
+    // ======================================================
 
-    function getMessages() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-      catch { return []; }
-    }
     function formatDate(iso) {
-      return new Date(iso).toLocaleDateString('id-ID', {
-        day: 'numeric', month: 'short', year: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-      });
+      if (!iso) return '';
+      try {
+        return new Date(iso).toLocaleDateString('id-ID', {
+          day: 'numeric', month: 'short', year: 'numeric',
+          hour: '2-digit', minute: '2-digit'
+        });
+      } catch { return ''; }
     }
+
     function escapeHtml(str) {
       const d = document.createElement('div');
-      d.textContent = str;
+      d.textContent = str || '';
       return d.innerHTML;
     }
-    function renderMessages() {
-      const list = getMessages();
+
+    async function renderMessages() {
       const box = document.getElementById('messagesList');
       const count = document.getElementById('msgCount');
-      count.textContent = list.length + ' pesan';
-      if (!list.length) {
-        box.innerHTML = '<div class="empty-state"><p>Belum ada pesan. Jadilah yang pertama mengirim semangat!</p></div>';
-        return;
-      }
-      box.innerHTML = list.map(m => `
-        <div class="msg-card">
-          <div class="msg-top">
-            <div>
-              <div class="msg-author">${escapeHtml(m.nama)}</div>
-              <div class="msg-meta">${escapeHtml(m.kelas)} · ${escapeHtml(m.jurusan)}</div>
+      if (!box) return;
+
+      box.innerHTML = '<div class="empty-state"><p>Memuat pesan...</p></div>';
+
+      try {
+        const res = await fetch(SCRIPT_URL);
+        const list = await res.json();
+
+        count.textContent = (list.length || 0) + ' pesan';
+
+        if (!list.length) {
+          box.innerHTML = '<div class="empty-state"><p>Belum ada pesan. Jadilah yang pertama mengirim semangat!</p></div>';
+          return;
+        }
+
+        box.innerHTML = list.map(m => `
+          <div class="msg-card">
+            <div class="msg-top">
+              <div>
+                <div class="msg-author">${escapeHtml(m.nama)}</div>
+                <div class="msg-meta">${escapeHtml(m.kelas)} · ${escapeHtml(m.jurusan)}</div>
+              </div>
+              <div class="msg-date">${formatDate(m.waktu)}</div>
             </div>
-            <div class="msg-date">${formatDate(m.waktu)}</div>
+            <div class="msg-body">${escapeHtml(m.pesan)}</div>
+            <div class="msg-tags"><span class="tag">${escapeHtml(m.status || 'Pengirim')}</span></div>
           </div>
-          <div class="msg-body">${escapeHtml(m.pesan)}</div>
-          <div class="msg-tags"><span class="tag">${escapeHtml(m.status || 'Pengirim')}</span></div>
-        </div>
-      `).join('');
+        `).join('');
+      } catch (err) {
+        count.textContent = '0 pesan';
+        box.innerHTML = '<div class="empty-state"><p>Gagal memuat pesan. Pastikan SCRIPT_URL sudah benar.</p></div>';
+      }
     }
 
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      menuBtn.classList.toggle('active');
-      mobileMenu.classList.toggle('open');
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        menuBtn.classList.remove('active');
-        mobileMenu.classList.remove('open');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('active');
+        mobileMenu.classList.toggle('open');
       });
-    });
+      mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          menuBtn.classList.remove('active');
+          mobileMenu.classList.remove('open');
+        });
+      });
+    }
 
     renderMessages();
   </script>
