@@ -5,508 +5,208 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>XII TJKT — SMK Muhammadiyah 1 Pringsewu</title>
   <meta name="description" content="Website resmi kelas XII TJKT SMK Muhammadiyah 1 Pringsewu. Terhubung, Tangguh, Berakhlak." />
-  
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
   <style>
     :root {
-      --bg: #070b14;
-      --bg-soft: #0d1321;
-      --card: #111827;
-      --card-hover: #1a2332;
+      --bg: #060a12;
+      --card: #0f1623;
+      --card-hover: #162032;
       --accent: #a3e635;
-      --accent-dim: #84cc16;
+      --accent-soft: rgba(163,230,53,0.12);
       --text: #f1f5f9;
       --muted: #94a3b8;
       --border: #1e293b;
-      --radius: 16px;
+      --radius: 18px;
     }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.65;
-      overflow-x: hidden;
     }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
 
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    /* ========== NAVBAR ========== */
+    /* NAV */
     nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 100;
-      background: rgba(7, 11, 20, 0.88);
-      backdrop-filter: blur(16px);
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(6,10,18,0.9);
+      backdrop-filter: blur(18px);
       border-bottom: 1px solid var(--border);
-      padding: 14px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      padding: 15px 32px;
+      display: flex; justify-content: space-between; align-items: center;
     }
-
-    .logo {
-      font-weight: 700;
-      font-size: 1.15rem;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .logo { font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 10px; }
     .logo-dot {
-      width: 10px;
-      height: 10px;
-      background: var(--accent);
-      border-radius: 50%;
-      box-shadow: 0 0 12px var(--accent);
+      width: 10px; height: 10px; background: var(--accent);
+      border-radius: 50%; box-shadow: 0 0 14px var(--accent);
     }
-
-    .nav-links {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
+    .nav-links { display: flex; gap: 6px; align-items: center; }
     .nav-links a {
-      padding: 8px 16px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--muted);
-      transition: all 0.25s ease;
+      padding: 9px 18px; border-radius: 999px;
+      font-size: 0.9rem; font-weight: 500; color: var(--muted);
+      transition: all 0.25s;
     }
-
-    .nav-links a:hover {
-      color: var(--text);
-      background: var(--card);
-    }
-
+    .nav-links a:hover { color: var(--text); background: var(--card); }
     .nav-cta {
       background: var(--accent) !important;
-      color: #0b0f1a !important;
+      color: #0a0f18 !important;
       font-weight: 600 !important;
     }
+    .nav-cta:hover { filter: brightness(1.08); }
 
-    .nav-cta:hover {
-      filter: brightness(1.1);
-      background: var(--accent) !important;
-    }
-
-    /* ========== BUTTONS ========== */
+    /* BUTTONS */
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 13px 26px;
-      border-radius: 999px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      border: none;
-      cursor: pointer;
-      transition: all 0.25s ease;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 14px 28px; border-radius: 999px;
+      font-weight: 600; font-size: 0.95rem;
+      border: none; cursor: pointer; transition: all 0.25s; font-family: inherit;
     }
-
-    .btn-primary {
-      background: var(--accent);
-      color: #0b0f1a;
-      box-shadow: 0 0 0 0 rgba(163, 230, 53, 0.4);
-    }
-
+    .btn-primary { background: var(--accent); color: #0a0f18; }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(163, 230, 53, 0.25);
+      box-shadow: 0 10px 28px rgba(163,230,53,0.28);
     }
-
     .btn-outline {
-      background: transparent;
-      color: var(--text);
+      background: transparent; color: var(--text);
       border: 1.5px solid #334155;
     }
-
-    .btn-outline:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
     .btn-ghost {
-      background: var(--card);
-      color: var(--text);
-      border: 1px solid var(--border);
+      background: var(--card); color: var(--text); border: 1px solid var(--border);
     }
+    .btn-ghost:hover { background: var(--card-hover); }
 
-    .btn-ghost:hover {
-      background: var(--card-hover);
-      border-color: #334155;
-    }
-
-    /* ========== HERO ========== */
+    /* HERO */
     .hero {
-      position: relative;
-      min-height: 100vh;
-      display: flex;
-      align-items: flex-end;
-      overflow: hidden;
+      position: relative; min-height: 100vh;
+      display: flex; align-items: flex-end; overflow: hidden;
     }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
+    .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
     .hero-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        #070b14 5%,
-        rgba(7, 11, 20, 0.7) 40%,
-        rgba(7, 11, 20, 0.3) 70%,
-        transparent 100%
-      );
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, #060a12 8%, rgba(6,10,18,0.75) 45%, rgba(6,10,18,0.25) 75%, transparent);
     }
-
-    .hero-content {
-      position: relative;
-      z-index: 10;
-      padding: 0 28px 90px;
-      max-width: 920px;
-    }
-
+    .hero-content { position: relative; z-index: 10; padding: 0 32px 100px; max-width: 900px; }
     .hero-badge {
       display: inline-block;
-      background: rgba(163, 230, 53, 0.12);
-      color: var(--accent);
-      font-size: 0.85rem;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 999px;
-      margin-bottom: 18px;
-      border: 1px solid rgba(163, 230, 53, 0.25);
+      background: var(--accent-soft); color: var(--accent);
+      font-size: 0.82rem; font-weight: 600;
+      padding: 7px 16px; border-radius: 999px; margin-bottom: 20px;
+      border: 1px solid rgba(163,230,53,0.22);
     }
-
     .hero h1 {
-      font-size: clamp(3rem, 9vw, 5.2rem);
-      font-weight: 800;
-      line-height: 1.05;
-      letter-spacing: -1.5px;
-      margin-bottom: 12px;
+      font-size: clamp(3.2rem, 9vw, 5.4rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -1.8px; margin-bottom: 14px;
     }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 8px; }
+    .hero-motto { color: var(--accent); font-style: italic; font-size: 1.12rem; margin-bottom: 36px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
 
-    .hero h1 span {
-      color: var(--accent);
-    }
-
-    .hero-sub {
-      font-size: 1.2rem;
-      color: #cbd5e1;
-      margin-bottom: 6px;
-    }
-
-    .hero-motto {
-      color: var(--accent);
-      font-style: italic;
-      font-size: 1.1rem;
-      margin-bottom: 32px;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-    }
-
-    /* ========== SECTIONS ========== */
-    section {
-      padding: 90px 28px;
-      max-width: 1120px;
-      margin: 0 auto;
-    }
-
+    /* SECTIONS */
+    section { padding: 100px 32px; max-width: 1140px; margin: 0 auto; }
     .section-label {
-      color: var(--accent);
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 2.5px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
+      color: var(--accent); font-size: 0.78rem; font-weight: 600;
+      letter-spacing: 2.8px; text-transform: uppercase; margin-bottom: 12px;
     }
-
     h2 {
-      font-size: clamp(1.8rem, 4vw, 2.3rem);
-      font-weight: 750;
-      margin-bottom: 16px;
-      letter-spacing: -0.5px;
+      font-size: clamp(1.85rem, 4vw, 2.35rem);
+      font-weight: 750; margin-bottom: 14px; letter-spacing: -0.6px;
     }
+    .section-desc { color: var(--muted); max-width: 580px; margin-bottom: 44px; font-size: 1.05rem; }
 
-    .section-desc {
-      color: var(--muted);
-      max-width: 620px;
-      margin-bottom: 40px;
-      font-size: 1.05rem;
-    }
-
-    /* ========== STATS ========== */
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-      margin-top: 10px;
-    }
-
+    /* STATS */
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
     .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 28px 20px;
-      text-align: center;
-      transition: all 0.3s ease;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 32px 20px; text-align: center;
+      transition: all 0.3s;
     }
+    .stat-card:hover { background: var(--card-hover); border-color: #334155; transform: translateY(-5px); }
+    .stat-card strong { display: block; font-size: 2.3rem; font-weight: 800; color: var(--accent); margin-bottom: 6px; }
+    .stat-card span { font-size: 0.9rem; color: var(--muted); }
 
-    .stat-card:hover {
-      background: var(--card-hover);
-      border-color: #334155;
-      transform: translateY(-4px);
-    }
-
-    .stat-card strong {
-      display: block;
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--accent);
-      margin-bottom: 6px;
-    }
-
-    .stat-card span {
-      font-size: 0.9rem;
-      color: var(--muted);
-    }
-
-    /* ========== CARDS ========== */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 18px;
-    }
-
-    .grid-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
+    /* CARDS */
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      transition: all 0.3s ease;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 26px; transition: all 0.3s;
     }
-
-    .card:hover {
-      background: var(--card-hover);
-      border-color: #334155;
-      transform: translateY(-3px);
-    }
-
+    .card:hover { background: var(--card-hover); border-color: #334155; transform: translateY(-4px); }
     .card-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--accent);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
+      font-size: 0.78rem; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px;
     }
+    .card-title { font-size: 1.18rem; font-weight: 700; }
 
-    .card-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-    }
-
-    /* ========== RULES & WALAS ========== */
-    .rules-list {
-      list-style: none;
-      margin-top: 12px;
-    }
-
-    .rules-list li {
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 1.05rem;
-    }
-
-    .rules-list li:last-child {
-      border-bottom: none;
-    }
-
+    /* RULES */
+    .rules-list { list-style: none; margin-top: 14px; }
+    .rules-list li { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 1.05rem; }
+    .rules-list li:last-child { border-bottom: none; }
     .walas-box {
-      background: linear-gradient(135deg, rgba(163, 230, 53, 0.08), transparent);
+      background: linear-gradient(135deg, rgba(163,230,53,0.09), transparent);
       border-left: 4px solid var(--accent);
-      padding: 18px 20px;
-      border-radius: 0 12px 12px 0;
-      margin-top: 16px;
-      font-style: italic;
-      color: #e2e8f0;
+      padding: 18px 20px; border-radius: 0 14px 14px 0;
+      margin-top: 18px; font-style: italic; color: #e2e8f0;
     }
 
-    /* ========== BIRTHDAY ========== */
-    .bday-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-      gap: 12px;
-    }
-
+    /* BIRTHDAY */
+    .bday-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(172px, 1fr)); gap: 12px; }
     .bday-item {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
-      transition: all 0.25s ease;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 16px 18px; transition: all 0.25s;
     }
+    .bday-item:hover { border-color: var(--accent); background: var(--card-hover); }
+    .bday-item strong { display: block; font-size: 0.98rem; margin-bottom: 4px; }
+    .bday-item span { font-size: 0.82rem; color: var(--muted); }
 
-    .bday-item:hover {
-      border-color: var(--accent);
-      background: var(--card-hover);
-    }
-
-    .bday-item strong {
-      display: block;
-      font-size: 0.98rem;
-      margin-bottom: 3px;
-    }
-
-    .bday-item span {
-      font-size: 0.82rem;
-      color: var(--muted);
-    }
-
-    /* ========== CTA SECTION ========== */
+    /* CTA */
     .cta-box {
-      background: linear-gradient(135deg, #111827, #0f172a);
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 48px 40px;
-      text-align: center;
-      margin-top: 20px;
+      background: linear-gradient(145deg, #0f1623, #0c121e);
+      border: 1px solid var(--border); border-radius: 28px;
+      padding: 56px 44px; text-align: center;
     }
+    .cta-box h3 { font-size: 1.75rem; margin-bottom: 12px; }
+    .cta-box p { color: var(--muted); margin-bottom: 30px; max-width: 460px; margin-left: auto; margin-right: auto; }
 
-    .cta-box h3 {
-      font-size: 1.7rem;
-      margin-bottom: 12px;
-    }
-
-    .cta-box p {
-      color: var(--muted);
-      margin-bottom: 28px;
-      max-width: 480px;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* ========== FOOTER ========== */
     footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 28px;
-      text-align: center;
-      color: var(--muted);
-      font-size: 0.9rem;
+      border-top: 1px solid var(--border); padding: 44px 32px;
+      text-align: center; color: var(--muted); font-size: 0.9rem;
     }
+    footer strong { color: var(--text); }
 
-    footer strong {
-      color: var(--text);
-    }
-
-    /* ========== RESPONSIVE ========== */
-    @media (max-width: 900px) {
-      .stats {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
+    @media (max-width: 900px) { .stats { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 700px) {
-      .nav-links {
-        display: none;
-      }
-
-      .grid-2 {
-        grid-template-columns: 1fr;
-      }
-
-      .hero-content {
-        padding-bottom: 70px;
-      }
-
-      .cta-box {
-        padding: 36px 24px;
-      }
-
-      section {
-        padding: 70px 20px;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .stats {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .hero h1 {
-        font-size: 2.8rem;
-      }
+      .nav-links { display: none; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .hero-content { padding-bottom: 72px; }
+      .cta-box { padding: 40px 24px; }
+      section { padding: 72px 20px; }
+      nav { padding: 14px 20px; }
     }
   </style>
 </head>
 <body>
 
-  <!-- NAVBAR -->
   <nav>
-    <div class="logo">
-      <div class="logo-dot"></div>
-      XII TJKT
-    </div>
+    <div class="logo"><div class="logo-dot"></div> XII TJKT</div>
     <div class="nav-links">
       <a href="#tentang">Tentang</a>
       <a href="#struktur">Struktur</a>
       <a href="#rules">Rules</a>
       <a href="#birthday">Birthday</a>
-      <a href="#kontak" class="nav-cta">Kontak</a>
+      <a href="pesan.html" class="nav-cta">Kirim Pesan</a>
     </div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero">
-    <img 
-      class="hero-bg"
-      src="https://i.ibb.co.com/LhXVwz2w/after-sas-xtekaje-xitekaje-smkmusapringsewu-1.webp" 
-      alt="Siswa XII TJKT SMK Muhammadiyah 1 Pringsewu"
-    />
+    <img class="hero-bg" src="https://i.ibb.co.com/LhXVwz2w/after-sas-xtekaje-xitekaje-smkmusapringsewu-1.webp" alt="Siswa XII TJKT" />
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-badge">SMK Muhammadiyah 1 Pringsewu · 2026/2027</div>
@@ -515,82 +215,41 @@
       <p class="hero-motto">“Terhubung, Tangguh, Berakhlak.”</p>
       <div class="hero-actions">
         <a href="#struktur" class="btn btn-primary">Kenali Kami</a>
-        <a href="#birthday" class="btn btn-outline">Lihat Birthday</a>
+        <a href="pesan.html" class="btn btn-outline">Kirim Pesan</a>
       </div>
     </div>
   </section>
 
-  <!-- TENTANG -->
   <section id="tentang">
     <div class="section-label">// 01 / tentang</div>
     <h2>Tentang Kelas Kami</h2>
-    <p class="section-desc">
-      Kami adalah keluarga XII TJKT — angkatan yang tumbuh di antara kabel UTP, rak server, dan semangat Islam berkemajuan. Tiga tahun belajar merancang, memasang, dan merawat jaringan.
-    </p>
-
+    <p class="section-desc">Kami adalah keluarga XII TJKT — angkatan yang tumbuh di antara kabel UTP, rak server, dan semangat Islam berkemajuan.</p>
     <div class="stats">
-      <div class="stat-card">
-        <strong>41</strong>
-        <span>Siswa Aktif</span>
-      </div>
-      <div class="stat-card">
-        <strong>3</strong>
-        <span>Tahun Bersama</span>
-      </div>
-      <div class="stat-card">
-        <strong>1.200+</strong>
-        <span>Meter Kabel</span>
-      </div>
-      <div class="stat-card">
-        <strong>6</strong>
-        <span>Bulan PKL</span>
-      </div>
+      <div class="stat-card"><strong>41</strong><span>Siswa Aktif</span></div>
+      <div class="stat-card"><strong>3</strong><span>Tahun Bersama</span></div>
+      <div class="stat-card"><strong>1.200+</strong><span>Meter Kabel</span></div>
+      <div class="stat-card"><strong>6</strong><span>Bulan PKL</span></div>
     </div>
   </section>
 
-  <!-- STRUKTUR -->
   <section id="struktur">
     <div class="section-label">// 02 / struktur</div>
     <h2>Struktur Organisasi</h2>
     <p class="section-desc">Setiap orang adalah node penting dalam jaringan kelas ini.</p>
-
     <div class="grid-3">
-      <div class="card">
-        <div class="card-label">Ketua Kelas</div>
-        <div class="card-title">Afanda Argya Tama</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Wakil Ketua 1</div>
-        <div class="card-title">Imam Al Hafiz</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Wakil Ketua 2</div>
-        <div class="card-title">Syifa Talita Shaki</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Sekretaris 1</div>
-        <div class="card-title">Devina Yolanda</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Sekretaris 2</div>
-        <div class="card-title">Rendra Tri Wardhana</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Bendahara 1</div>
-        <div class="card-title">Thalita</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Bendahara 2</div>
-        <div class="card-title">Vanikiara Jovinca Elvarani</div>
-      </div>
+      <div class="card"><div class="card-label">Ketua Kelas</div><div class="card-title">Afanda Argya Tama</div></div>
+      <div class="card"><div class="card-label">Wakil Ketua 1</div><div class="card-title">Imam Al Hafiz</div></div>
+      <div class="card"><div class="card-label">Wakil Ketua 2</div><div class="card-title">Syifa Talita Shaki</div></div>
+      <div class="card"><div class="card-label">Sekretaris 1</div><div class="card-title">Devina Yolanda</div></div>
+      <div class="card"><div class="card-label">Sekretaris 2</div><div class="card-title">Rendra Tri Wardhana</div></div>
+      <div class="card"><div class="card-label">Bendahara 1</div><div class="card-title">Thalita</div></div>
+      <div class="card"><div class="card-label">Bendahara 2</div><div class="card-title">Vanikiara Jovinca Elvarani</div></div>
     </div>
   </section>
 
-  <!-- RULES & WALAS -->
   <section id="rules">
     <div class="section-label">// 03 / rules & walas</div>
     <h2>Rules & Wali Kelas</h2>
-
     <div class="grid-2">
       <div class="card">
         <div class="card-label">Rules GC XII TJKT</div>
@@ -599,23 +258,18 @@
           <li>❌ Menghina & mengejek</li>
         </ul>
       </div>
-
       <div class="card">
         <div class="card-label">Wali Kelas</div>
-        <div class="card-title" style="margin-bottom: 4px;">Juliana Istiqomah</div>
-        <div class="walas-box">
-          “jangan circle'an oke❗❗, bersahabat sajaaa”
-        </div>
+        <div class="card-title">Juliana Istiqomah</div>
+        <div class="walas-box">“jangan circle'an oke❗❗, bersahabat sajaaa”</div>
       </div>
     </div>
   </section>
 
-  <!-- BIRTHDAY -->
   <section id="birthday">
     <div class="section-label">// 04 / birthday</div>
     <h2>Data Birthday</h2>
     <p class="section-desc">Jangan lupa ucapkan selamat ulang tahun ke teman sekelasmu.</p>
-
     <div class="bday-grid">
       <div class="bday-item"><strong>Afanda</strong><span>11 Januari</span></div>
       <div class="bday-item"><strong>Umi</strong><span>16 Januari</span></div>
@@ -661,23 +315,20 @@
     </div>
   </section>
 
-  <!-- CTA / KONTAK -->
-  <section id="kontak">
+  <section>
     <div class="cta-box">
       <h3>Ingin menyampaikan pesan?</h3>
       <p>Teman, alumni, guru, atau orang tua — silakan tinggalkan semangat untuk angkatan XII TJKT.</p>
-      <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-        <a href="https://tkjsmkmusa.netlify.app" class="btn btn-primary" target="_blank">Kunjungi Situs Lama</a>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+        <a href="pesan.html" class="btn btn-primary">Kirim Pesan Sekarang</a>
         <a href="#tentang" class="btn btn-ghost">Kembali ke Atas</a>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <strong>XII TJKT</strong> · SMK Muhammadiyah 1 Pringsewu · Tahun Ajaran 2026/2027<br>
     Terhubung, Tangguh, Berakhlak.
   </footer>
-
 </body>
 </html>
