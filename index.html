@@ -383,6 +383,116 @@
     /* PEMUTAR YOUTUBE (disembunyikan, hanya suara) */
     .yt-hidden{position:fixed;left:-9999px;top:0;width:200px;height:200px;opacity:0;pointer-events:none;overflow:hidden}
 
+/* GALERI */
+    .gallery-frame{
+      position:relative;max-width:980px;margin:0 auto;padding:10px;border-radius:26px;
+      background:linear-gradient(135deg,rgba(178,243,75,.6),rgba(178,243,75,.08) 42%,rgba(180,205,230,.22));
+      box-shadow:0 25px 70px rgba(0,0,0,.35),0 0 40px rgba(178,243,75,.08);
+    }
+    .gallery-viewport{
+      position:relative;overflow:hidden;border-radius:18px;
+      aspect-ratio:16/9;background:#081522;touch-action:pan-y;
+    }
+    .gallery-track{display:flex;height:100%;transition:transform .7s cubic-bezier(.65,0,.25,1)}
+    .slide{position:relative;flex:0 0 100%;height:100%;margin:0}
+    .slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;user-select:none;-webkit-user-drag:none}
+    .slide-ph{
+      position:absolute;inset:0;z-index:0;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;gap:6px;
+      background:linear-gradient(135deg,#10263c,#0b1a2b);color:var(--muted);font-weight:700;
+    }
+    .slide-ph small{font-weight:500;font-size:.78rem;opacity:.7}
+    .slide figcaption{
+      position:absolute;left:0;right:0;bottom:0;z-index:2;
+      padding:56px 24px 22px;
+      background:linear-gradient(transparent,rgba(5,14,24,.88));
+    }
+    .slide figcaption strong{display:block;font-size:1.1rem;font-weight:800}
+    .slide figcaption span{font-size:.86rem;color:var(--muted-2)}
+    .g-btn{
+      position:absolute;top:50%;transform:translateY(-50%);z-index:4;
+      width:46px;height:46px;border-radius:50%;cursor:pointer;
+      border:1px solid rgba(178,243,75,.4);background:rgba(8,24,41,.72);color:var(--accent);
+      display:grid;place-items:center;transition:.25s;
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    }
+    .g-btn:hover{background:var(--accent);color:#16210c}
+    .g-btn svg{width:22px;height:22px}
+    .g-prev{left:18px}
+    .g-next{right:18px}
+    .g-counter{
+      position:absolute;top:16px;right:16px;z-index:4;
+      padding:5px 13px;border-radius:999px;font-size:.76rem;font-weight:700;
+      background:rgba(8,24,41,.72);border:1px solid var(--border);
+      backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+    }
+    .g-progress{position:absolute;left:0;bottom:0;height:3px;width:100%;z-index:4;background:rgba(255,255,255,.08)}
+    .g-progress i{display:block;height:100%;width:100%;background:var(--accent);transform-origin:left;transform:scaleX(0)}
+    .g-progress i.run{animation:gprog var(--gdelay,4500ms) linear forwards}
+    @keyframes gprog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+    .g-dots{display:flex;justify-content:center;gap:8px;padding:14px 0 4px}
+    .g-dots button{
+      width:9px;height:9px;border-radius:999px;border:0;padding:0;cursor:pointer;
+      background:rgba(180,205,230,.3);transition:.3s;
+    }
+    .g-dots button.active{width:28px;background:var(--accent)}
+    @media(max-width:760px){
+      .gallery-frame{padding:7px;border-radius:20px}
+      .gallery-viewport{aspect-ratio:4/3;border-radius:14px}
+      .g-btn{width:38px;height:38px}
+      .g-prev{left:10px}.g-next{right:10px}
+      .slide figcaption{padding:40px 16px 16px}
+      .slide figcaption strong{font-size:.95rem}
+    }
+    @media (prefers-reduced-motion:reduce){
+      .gallery-track{transition:none}
+      .g-progress{display:none}
+    }
+
+/* ALBUM POLAROID */
+    .album{position:relative}
+    .album-viewport{overflow:hidden;padding:26px 0 30px;touch-action:pan-y}
+    .album-track{display:flex;transition:transform .7s cubic-bezier(.65,0,.25,1)}
+    .pola-slot{flex:0 0 calc(100% / var(--pv,3));padding:0 14px}
+    .pola{
+      position:relative;margin:0;background:#f4f1ea;color:#1b2a3a;
+      padding:12px 12px 60px;border-radius:6px;
+      box-shadow:0 18px 40px rgba(0,0,0,.4);
+      transform:rotate(var(--r,0deg));transition:transform .35s ease,box-shadow .35s ease;
+    }
+    .pola-slot:nth-child(odd) .pola{--r:-2.5deg}
+    .pola-slot:nth-child(even) .pola{--r:2deg}
+    .pola:hover{transform:rotate(0deg) translateY(-6px);box-shadow:0 26px 50px rgba(0,0,0,.5)}
+    .pola:before{
+      content:"";position:absolute;top:-13px;left:50%;width:84px;height:26px;
+      transform:translateX(-50%) rotate(-3deg);
+      background:rgba(178,243,75,.55);border-left:2px dashed rgba(255,255,255,.35);border-right:2px dashed rgba(255,255,255,.35);
+      z-index:3;
+    }
+    .pola-photo{position:relative;aspect-ratio:4/5;overflow:hidden;background:#0b1a2b;border-radius:2px}
+    .pola-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;user-select:none;-webkit-user-drag:none}
+    .pola-ph{
+      position:absolute;inset:0;z-index:0;display:flex;flex-direction:column;
+      align-items:center;justify-content:center;gap:6px;
+      background:linear-gradient(135deg,#10263c,#0b1a2b);color:var(--muted);font-weight:700;
+    }
+    .pola-ph small{font-weight:500;font-size:.74rem;opacity:.7}
+    .pola figcaption{
+      position:absolute;left:14px;right:14px;bottom:14px;text-align:center;
+      font-weight:700;font-size:.92rem;font-style:italic;
+    }
+    .pola figcaption span{display:block;font-weight:500;font-size:.76rem;color:#51606f}
+    .album-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:6px}
+    .album-controls .g-btn{position:static;transform:none}
+    .album-dots{display:flex;gap:8px}
+    .album-dots button{
+      width:9px;height:9px;border-radius:999px;border:0;padding:0;cursor:pointer;
+      background:rgba(180,205,230,.3);transition:.3s;
+    }
+    .album-dots button.active{width:28px;background:var(--accent)}
+    @media(max-width:999px){.pola-slot{padding:0 12px}}
+    @media (prefers-reduced-motion:reduce){.album-track{transition:none}}
+
     /* TOMBOL MUSIK */
     .music-btn{
       position:fixed;right:18px;bottom:18px;z-index:120;
@@ -531,6 +641,7 @@
       <a href="#kegiatan">Kegiatan</a>
       <a href="#fasilitas">Fasilitas</a>
       <a href="#rules">Rules</a>
+      <a href="#galeri">Galeri</a>
       <a href="#sosmed">Sosmed</a>
       <a href="pesan.html" class="nav-cta">Kirim Pesan</a>
     </div>
@@ -545,6 +656,7 @@
     <a href="#kegiatan">Kegiatan</a>
     <a href="#fasilitas">Fasilitas</a>
     <a href="#rules">Rules</a>
+    <a href="#galeri">Galeri</a>
     <a href="#sosmed">Sosmed</a>
     <a href="pesan.html" class="nav-cta">Kirim Pesan</a>
   </div>
@@ -732,8 +844,130 @@
     </div>
   </section>
 
+  <section id="galeri">
+    <div class="section-label">// 05 / galeri</div>
+    <h2>Galeri Foto</h2>
+    <p class="section-desc">Potongan momen dan kenangan kelas XII TJKT.</p>
+    <div class="gallery-frame" id="gallery" role="region" aria-roledescription="carousel" aria-label="Galeri foto kelas" tabindex="0">
+      <div class="gallery-viewport">
+        <div class="gallery-track">
+          <!-- Tambah/hapus foto: salin satu blok <figure class="slide"> ... </figure>, lalu ganti src, judul, dan keterangan -->
+        <figure class="slide">
+          <img src="galeri/foto-1.jpg" alt="Kebersamaan XII TJKT" onerror="this.style.display='none'">
+          <div class="slide-ph"><span>Foto 1</span><small>galeri/foto-1.jpg</small></div>
+          <figcaption><strong>Kebersamaan XII TJKT</strong><span>Satu tempat seribu cerita</span></figcaption>
+        </figure>
+        <figure class="slide">
+          <img src="galeri/foto-2.jpg" alt="Praktik Jaringan" onerror="this.style.display='none'">
+          <div class="slide-ph"><span>Foto 2</span><small>galeri/foto-2.jpg</small></div>
+          <figcaption><strong>Praktik Jaringan</strong><span>Belajar bersama di laboratorium</span></figcaption>
+        </figure>
+        <figure class="slide">
+          <img src="galeri/foto-3.jpg" alt="Momen Kelas" onerror="this.style.display='none'">
+          <div class="slide-ph"><span>Foto 3</span><small>galeri/foto-3.jpg</small></div>
+          <figcaption><strong>Momen Kelas</strong><span>Tawa dan cerita di sela pelajaran</span></figcaption>
+        </figure>
+        <figure class="slide">
+          <img src="galeri/foto-4.jpg" alt="Kegiatan Sekolah" onerror="this.style.display='none'">
+          <div class="slide-ph"><span>Foto 4</span><small>galeri/foto-4.jpg</small></div>
+          <figcaption><strong>Kegiatan Sekolah</strong><span>Kompak di setiap kesempatan</span></figcaption>
+        </figure>
+        <figure class="slide">
+          <img src="galeri/foto-5.jpg" alt="PKL" onerror="this.style.display='none'">
+          <div class="slide-ph"><span>Foto 5</span><small>galeri/foto-5.jpg</small></div>
+          <figcaption><strong>PKL</strong><span>Pengalaman nyata di dunia kerja</span></figcaption>
+        </figure>
+        <figure class="slide">
+          <img src="galeri/foto-6.jpg" alt="Foto Bersama" onerror="this.style.display='none'">
+          <div class="slide-ph"><span>Foto 6</span><small>galeri/foto-6.jpg</small></div>
+          <figcaption><strong>Foto Bersama</strong><span>Terhubung, Tangguh, Berakhlak</span></figcaption>
+        </figure>
+        </div>
+        <button class="g-btn g-prev" type="button" aria-label="Foto sebelumnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <button class="g-btn g-next" type="button" aria-label="Foto berikutnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        <div class="g-counter" id="gCounter">1 / 6</div>
+        <div class="g-progress"><i id="gProgress"></i></div>
+      </div>
+      <div class="g-dots" id="gDots"></div>
+    </div>
+  </section>
+
+  <section id="album">
+    <div class="section-label">// 06 / album</div>
+    <h2>Album Kenangan</h2>
+    <p class="section-desc">Geser untuk melihat lembar-lembar kenangan kelas.</p>
+    <div class="album" id="album-slider" role="region" aria-roledescription="carousel" aria-label="Album kenangan polaroid" tabindex="0">
+      <div class="album-viewport">
+        <div class="album-track">
+          <!-- Tambah/hapus foto: salin satu blok <div class="pola-slot"> ... </div>, lalu ganti src, judul, dan keterangan -->
+          <div class="pola-slot"><figure class="pola">
+            <div class="pola-photo">
+              <img src="album/foto-1.jpg" alt="Hari Pertama" onerror="this.style.display='none'">
+              <div class="pola-ph"><span>Foto 1</span><small>album/foto-1.jpg</small></div>
+            </div>
+            <figcaption>Hari Pertama<span>Awal cerita kita</span></figcaption>
+          </figure></div>
+          <div class="pola-slot"><figure class="pola">
+            <div class="pola-photo">
+              <img src="album/foto-2.jpg" alt="Ruang Lab" onerror="this.style.display='none'">
+              <div class="pola-ph"><span>Foto 2</span><small>album/foto-2.jpg</small></div>
+            </div>
+            <figcaption>Ruang Lab<span>Kabel UTP dan semangat</span></figcaption>
+          </figure></div>
+          <div class="pola-slot"><figure class="pola">
+            <div class="pola-photo">
+              <img src="album/foto-3.jpg" alt="Tawa Bersama" onerror="this.style.display='none'">
+              <div class="pola-ph"><span>Foto 3</span><small>album/foto-3.jpg</small></div>
+            </div>
+            <figcaption>Tawa Bersama<span>Di sela pelajaran</span></figcaption>
+          </figure></div>
+          <div class="pola-slot"><figure class="pola">
+            <div class="pola-photo">
+              <img src="album/foto-4.jpg" alt="Study Tour" onerror="this.style.display='none'">
+              <div class="pola-ph"><span>Foto 4</span><small>album/foto-4.jpg</small></div>
+            </div>
+            <figcaption>Study Tour<span>Jalan-jalan seru</span></figcaption>
+          </figure></div>
+          <div class="pola-slot"><figure class="pola">
+            <div class="pola-photo">
+              <img src="album/foto-5.jpg" alt="Kerja Kelompok" onerror="this.style.display='none'">
+              <div class="pola-ph"><span>Foto 5</span><small>album/foto-5.jpg</small></div>
+            </div>
+            <figcaption>Kerja Kelompok<span>Satu tim satu tujuan</span></figcaption>
+          </figure></div>
+          <div class="pola-slot"><figure class="pola">
+            <div class="pola-photo">
+              <img src="album/foto-6.jpg" alt="Hari Besar" onerror="this.style.display='none'">
+              <div class="pola-ph"><span>Foto 6</span><small>album/foto-6.jpg</small></div>
+            </div>
+            <figcaption>Hari Besar<span>Kompak berseragam</span></figcaption>
+          </figure></div>
+          <div class="pola-slot"><figure class="pola">
+            <div class="pola-photo">
+              <img src="album/foto-7.jpg" alt="PKL" onerror="this.style.display='none'">
+              <div class="pola-ph"><span>Foto 7</span><small>album/foto-7.jpg</small></div>
+            </div>
+            <figcaption>PKL<span>Belajar di dunia kerja</span></figcaption>
+          </figure></div>
+          <div class="pola-slot"><figure class="pola">
+            <div class="pola-photo">
+              <img src="album/foto-8.jpg" alt="Kenangan" onerror="this.style.display='none'">
+              <div class="pola-ph"><span>Foto 8</span><small>album/foto-8.jpg</small></div>
+            </div>
+            <figcaption>Kenangan<span>Selalu terhubung</span></figcaption>
+          </figure></div>
+        </div>
+      </div>
+      <div class="album-controls">
+        <button class="g-btn" id="aPrev" type="button" aria-label="Sebelumnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+        <div class="album-dots" id="aDots"></div>
+        <button class="g-btn" id="aNext" type="button" aria-label="Berikutnya"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+      </div>
+    </div>
+  </section>
+
   <section id="sosmed">
-    <div class="section-label">// 05 / sosmed</div>
+    <div class="section-label">// 07 / sosmed</div>
     <h2>Media Sosial Kelas</h2>
     <p class="section-desc">Ikuti kabar terbaru dan dokumentasi kegiatan XII TJKT lewat media sosial kami.</p>
     <div class="social-grid">
@@ -760,7 +994,7 @@
   </section>
 
   <section id="developer">
-    <div class="section-label">// 06 / developer</div>
+    <div class="section-label">// 08 / developer</div>
     <h2>Pengembang Website</h2>
     <p class="section-desc">Website ini dibuat oleh dua teman sekelas kita.</p>
     <div class="dev-grid">
@@ -776,7 +1010,7 @@
   </section>
 
   <section id="pesan" class="messages-section">
-    <div class="section-label">// 07 / pesan</div>
+    <div class="section-label">// 09 / pesan</div>
     <div class="messages-header">
       <h2>Pesan Masuk</h2>
       <span class="msg-count" id="msgCount">0 pesan</span>
@@ -970,6 +1204,144 @@
     });
 
     if (AUTO_START) firstEvents.forEach(ev => document.addEventListener(ev, onFirstInteraction));
+
+    // ========== GALERI SLIDE ==========
+    (function () {
+      const root = document.getElementById('gallery');
+      if (!root) return;
+      const track = root.querySelector('.gallery-track');
+      const slides = root.querySelectorAll('.slide');
+      const dotsBox = document.getElementById('gDots');
+      const counter = document.getElementById('gCounter');
+      const bar = document.getElementById('gProgress');
+      const DELAY = 4500; // ms per foto
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let i = 0, timer = null, paused = false;
+      root.style.setProperty('--gdelay', DELAY + 'ms');
+
+      slides.forEach((_, n) => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('aria-label', 'Foto ' + (n + 1));
+        b.addEventListener('click', () => { go(n); restart(); });
+        dotsBox.appendChild(b);
+      });
+      const dots = dotsBox.querySelectorAll('button');
+
+      function progress() {
+        bar.classList.remove('run');
+        void bar.offsetWidth;
+        if (!paused && !reduce) bar.classList.add('run');
+      }
+      function go(n) {
+        i = (n + slides.length) % slides.length;
+        track.style.transform = 'translateX(-' + (i * 100) + '%)';
+        dots.forEach((d, k) => d.classList.toggle('active', k === i));
+        counter.textContent = (i + 1) + ' / ' + slides.length;
+        progress();
+      }
+      function stop() { clearInterval(timer); timer = null; }
+      function start() { if (reduce || paused) return; stop(); timer = setInterval(() => go(i + 1), DELAY); }
+      function restart() { stop(); start(); }
+      function pause() { paused = true; stop(); bar.classList.remove('run'); }
+      function resume() { paused = false; go(i); start(); }
+
+      root.querySelector('.g-prev').addEventListener('click', () => { go(i - 1); restart(); });
+      root.querySelector('.g-next').addEventListener('click', () => { go(i + 1); restart(); });
+      root.addEventListener('mouseenter', pause);
+      root.addEventListener('mouseleave', resume);
+      root.addEventListener('focusin', pause);
+      root.addEventListener('focusout', resume);
+      root.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { go(i - 1); restart(); }
+        if (e.key === 'ArrowRight') { go(i + 1); restart(); }
+      });
+
+      // geser dengan sentuhan
+      let x0 = null;
+      root.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; pause(); }, { passive: true });
+      root.addEventListener('touchend', (e) => {
+        if (x0 !== null) {
+          const dx = e.changedTouches[0].clientX - x0;
+          if (Math.abs(dx) > 40) go(dx < 0 ? i + 1 : i - 1);
+        }
+        x0 = null; resume();
+      });
+
+      // hemat: berhenti saat tab tidak terlihat
+      document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
+
+      go(0);
+      start();
+    })();
+
+    // ========== ALBUM POLAROID ==========
+    (function () {
+      const root = document.getElementById('album-slider');
+      if (!root) return;
+      const track = root.querySelector('.album-track');
+      const slots = root.querySelectorAll('.pola-slot');
+      const dotsBox = document.getElementById('aDots');
+      const DELAY = 3500;
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let pv = 3, i = 0, timer = null, paused = false;
+
+      function perView() { return window.innerWidth >= 1000 ? 3 : window.innerWidth >= 600 ? 2 : 1; }
+      function maxIndex() { return Math.max(0, slots.length - pv); }
+
+      function buildDots() {
+        dotsBox.innerHTML = '';
+        for (let n = 0; n <= maxIndex(); n++) {
+          const b = document.createElement('button');
+          b.type = 'button';
+          b.setAttribute('aria-label', 'Posisi ' + (n + 1));
+          b.addEventListener('click', () => { go(n); restart(); });
+          dotsBox.appendChild(b);
+        }
+      }
+      function go(n) {
+        const max = maxIndex();
+        i = n > max ? 0 : n < 0 ? max : n;
+        track.style.transform = 'translateX(-' + (i * 100 / pv) + '%)';
+        dotsBox.querySelectorAll('button').forEach((d, k) => d.classList.toggle('active', k === i));
+      }
+      function stop() { clearInterval(timer); timer = null; }
+      function start() { if (reduce || paused) return; stop(); timer = setInterval(() => go(i + 1), DELAY); }
+      function restart() { stop(); start(); }
+      function layout() {
+        pv = perView();
+        root.style.setProperty('--pv', pv);
+        buildDots();
+        go(Math.min(i, maxIndex()));
+      }
+
+      document.getElementById('aPrev').addEventListener('click', () => { go(i - 1); restart(); });
+      document.getElementById('aNext').addEventListener('click', () => { go(i + 1); restart(); });
+      root.addEventListener('mouseenter', () => { paused = true; stop(); });
+      root.addEventListener('mouseleave', () => { paused = false; start(); });
+      root.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { go(i - 1); restart(); }
+        if (e.key === 'ArrowRight') { go(i + 1); restart(); }
+      });
+
+      // geser dengan sentuhan
+      let x0 = null;
+      root.addEventListener('touchstart', (e) => { x0 = e.touches[0].clientX; paused = true; stop(); }, { passive: true });
+      root.addEventListener('touchend', (e) => {
+        if (x0 !== null) {
+          const dx = e.changedTouches[0].clientX - x0;
+          if (Math.abs(dx) > 40) go(dx < 0 ? i + 1 : i - 1);
+        }
+        x0 = null; paused = false; start();
+      });
+
+      let rt;
+      window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(layout, 150); });
+      document.addEventListener('visibilitychange', () => { document.hidden ? stop() : start(); });
+
+      layout();
+      start();
+    })();
 
     renderMessages();
   </script>
