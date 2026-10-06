@@ -365,6 +365,12 @@
       .org-group .org-card{flex-direction:row;text-align:left}
     }
 
+    /* PENGEMBANG */
+    .dev-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;max-width:640px}
+    .dev-grid .org-card{width:100%}
+    .footer-dev{font-size:.76rem}
+    @media(max-width:760px){.dev-grid{grid-template-columns:1fr}}
+
     /* ANIMASI MASUK */
     @keyframes fadeUp{
       from{opacity:0;transform:translateY(30px)}
@@ -662,6 +668,7 @@
       <div class="bday-item"><strong>Rista</strong><span>23 Juli</span></div>
       <div class="bday-item"><strong>Puspita</strong><span>2 Agustus</span></div>
       <div class="bday-item"><strong>Imam</strong><span>7 Agustus</span></div>
+      <div class="bday-item"><strong>Iqbal</strong><span>10 Agustus</span></div>
       <div class="bday-item"><strong>Fatir</strong><span>25 Agustus</span></div>
       <div class="bday-item"><strong>Rendra</strong><span>1 September</span></div>
       <div class="bday-item"><strong>Rafa</strong><span>6 September</span></div>
@@ -676,13 +683,28 @@
       <div class="bday-item"><strong>Vivi</strong><span>6 November</span></div>
       <div class="bday-item"><strong>Reyhan</strong><span>4 Desember</span></div>
       <div class="bday-item"><strong>Rangga</strong><span>21 Desember</span></div>
-      <div class="bday-item"><strong>Iqbal</strong><span>10 Agustus</span></div>
       <div class="bday-item"><strong>Dika</strong><span>23 Desember</span></div>
     </div>
   </section>
 
+  <section id="developer">
+    <div class="section-label">// 05 / developer</div>
+    <h2>Pengembang Website</h2>
+    <p class="section-desc">Website ini dibuat oleh dua teman sekelas kita.</p>
+    <div class="dev-grid">
+      <div class="org-card">
+        <div class="org-avatar">HP</div>
+        <div><div class="card-label">Pengembang 1</div><div class="card-title">Hendra Prayogi</div></div>
+      </div>
+      <div class="org-card">
+        <div class="org-avatar">NI</div>
+        <div><div class="card-label">Pengembang 2</div><div class="card-title">Nando Iqbal Setyanto</div></div>
+      </div>
+    </div>
+  </section>
+
   <section id="pesan" class="messages-section">
-    <div class="section-label">// 05 / pesan</div>
+    <div class="section-label">// 06 / pesan</div>
     <div class="messages-header">
       <h2>Pesan Masuk</h2>
       <span class="msg-count" id="msgCount">0 pesan</span>
@@ -708,7 +730,8 @@
   <footer>
     <img src="logo-tjkt.png" alt="Logo TJKT" class="footer-logo">
     <strong>XII TJKT</strong> · SMK Muhammadiyah 1 Pringsewu · 2026/2027<br>
-    Terhubung, Tangguh, Berakhlak.
+    Terhubung, Tangguh, Berakhlak.<br>
+    <span class="footer-dev">Dikembangkan oleh Hendra Prayogi &amp; Nando Iqbal Setyanto</span>
   </footer>
 
   <script>
