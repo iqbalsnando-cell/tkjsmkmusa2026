@@ -268,7 +268,7 @@
 
   <div class="container">
     <div class="info-box">
-      Setelah dikirim, pesan akan muncul di <strong>halaman utama bagian bawah</strong> (bagian Pesan Masuk).
+      Setelah dikirim, pesan akan muncul di <strong>halaman utama bagian bawah</strong> dan bisa dilihat dari perangkat mana saja.
     </div>
 
     <div class="form-card">
@@ -320,15 +320,10 @@
   </footer>
 
   <script>
-    const STORAGE_KEY = 'xii_tjkt_pesan_v2';
+    // ========== GANTI DENGAN URL APPS SCRIPT KAMU ==========
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1CXmxf_9_hhfLzEjghtnLz19tKrxbMbZ2d72-FLzKex1HyhQHygJKDHeSWltYIZwm/exec';
+    // ======================================================
 
-    function getMessages() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
-      catch { return []; }
-    }
-    function saveMessages(list) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
-    }
     function showToast(msg) {
       const t = document.getElementById('toast');
       t.textContent = msg;
@@ -336,7 +331,7 @@
       setTimeout(() => t.classList.remove('show'), 2800);
     }
 
-    document.getElementById('pesanForm').addEventListener('submit', function(e) {
+    document.getElementById('pesanForm').addEventListener('submit', async function(e) {
       e.preventDefault();
       const btn = document.getElementById('submitBtn');
       btn.disabled = true;
@@ -347,35 +342,45 @@
         kelas: document.getElementById('kelas').value.trim(),
         jurusan: document.getElementById('jurusan').value.trim(),
         status: document.getElementById('status').value,
-        pesan: document.getElementById('pesan').value.trim(),
-        waktu: new Date().toISOString()
+        pesan: document.getElementById('pesan').value.trim()
       };
 
-      const list = getMessages();
-      list.unshift(data);
-      saveMessages(list);
+      try {
+        await fetch(SCRIPT_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
 
-      this.reset();
-      showToast('Pesan berhasil dikirim! Lihat di halaman utama.');
+        this.reset();
+        showToast('Pesan berhasil dikirim!');
 
-      setTimeout(() => {
+        setTimeout(() => {
+          window.location.href = 'index.html#pesan';
+        }, 1200);
+
+      } catch (err) {
+        showToast('Gagal mengirim. Coba lagi.');
         btn.disabled = false;
         btn.textContent = 'Kirim Pesan';
-      }, 500);
+      }
     });
 
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
-    menuBtn.addEventListener('click', () => {
-      menuBtn.classList.toggle('active');
-      mobileMenu.classList.toggle('open');
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => {
-      a.addEventListener('click', () => {
-        menuBtn.classList.remove('active');
-        mobileMenu.classList.remove('open');
+    if (menuBtn && mobileMenu) {
+      menuBtn.addEventListener('click', () => {
+        menuBtn.classList.toggle('active');
+        mobileMenu.classList.toggle('open');
       });
-    });
+      mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          menuBtn.classList.remove('active');
+          mobileMenu.classList.remove('open');
+        });
+      });
+    }
   </script>
 </body>
 </html>
