@@ -308,6 +308,63 @@
     footer strong{color:#f5f8fb}
     .footer-logo{height:52px;width:auto;margin:0 auto 12px;object-fit:contain}
 
+    /* BAGAN STRUKTUR */
+    .org{display:flex;flex-direction:column;align-items:center}
+    .org-line{width:2px;height:30px;background:linear-gradient(var(--accent),rgba(178,243,75,.25))}
+    .org-tier{display:flex;justify-content:center;gap:16px;width:100%}
+    .org-card{
+      display:flex;align-items:center;gap:14px;text-align:left;
+      width:min(310px,100%);padding:16px 18px;border-radius:18px;
+      background:var(--surface);border:1px solid var(--border);
+      box-shadow:0 12px 35px rgba(0,0,0,.08);
+      backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);transition:.25s
+    }
+    .org-card:hover{transform:translateY(-3px);background:var(--surface-2);border-color:rgba(178,243,75,.22)}
+    .org-avatar{
+      width:46px;height:46px;border-radius:14px;flex:0 0 auto;
+      display:grid;place-items:center;font-weight:800;font-size:.95rem;
+      background:var(--accent-soft);color:var(--accent);border:1px solid rgba(178,243,75,.2)
+    }
+    .org-card .card-label{margin-bottom:2px}
+    .org-card .card-title{line-height:1.3}
+    .org-top{
+      flex-direction:column;align-items:flex-start;width:min(430px,100%);
+      border-color:rgba(178,243,75,.35);
+      background:linear-gradient(135deg,rgba(178,243,75,.1),var(--surface) 55%)
+    }
+    .org-top .org-head{display:flex;align-items:center;gap:14px}
+    .org-top .walas-box{margin-top:0;width:100%}
+    .org-ketua{border-color:rgba(178,243,75,.25)}
+    .org-groups{display:grid;grid-template-columns:1fr 1fr;gap:18px;width:100%;position:relative;padding-top:30px}
+    .org-groups:before{
+      content:"";position:absolute;top:0;left:25%;right:25%;height:2px;
+      background:rgba(178,243,75,.25)
+    }
+    .org-group{
+      position:relative;padding:18px;border-radius:20px;
+      background:rgba(255,255,255,.03);border:1px dashed var(--border)
+    }
+    .org-group:before{
+      content:"";position:absolute;top:-30px;left:50%;width:2px;height:30px;
+      background:rgba(178,243,75,.25)
+    }
+    .org-group-title{
+      text-align:center;color:var(--accent);font-size:.72rem;font-weight:700;
+      letter-spacing:2px;text-transform:uppercase;margin-bottom:14px
+    }
+    .org-group .org-members{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .org-group .org-card{width:100%;flex-direction:column;text-align:center;padding:16px 12px}
+    .rules-card{max-width:560px}
+    @media(max-width:760px){
+      .org-tier{flex-direction:column;align-items:center}
+      .org-groups{grid-template-columns:1fr}
+      .org-groups:before{display:none}
+      .org-group:before{display:none}
+      .org-groups{padding-top:30px}
+      .org-group .org-members{grid-template-columns:1fr}
+      .org-group .org-card{flex-direction:row;text-align:left}
+    }
+
     /* ANIMASI MASUK */
     @keyframes fadeUp{
       from{opacity:0;transform:translateY(30px)}
@@ -500,33 +557,77 @@
     <div class="section-label">// 02 / struktur</div>
     <h2>Struktur Organisasi</h2>
     <p class="section-desc">Setiap orang adalah node penting dalam jaringan kelas ini.</p>
-    <div class="grid-cards">
-      <div class="card"><div class="card-label">Ketua Kelas</div><div class="card-title">Afanda Argya Tama</div></div>
-      <div class="card"><div class="card-label">Wakil Ketua 1</div><div class="card-title">Imam Al Hafiz</div></div>
-      <div class="card"><div class="card-label">Wakil Ketua 2</div><div class="card-title">Syifa Talita Shaki</div></div>
-      <div class="card"><div class="card-label">Sekretaris 1</div><div class="card-title">Devina Yolanda</div></div>
-      <div class="card"><div class="card-label">Sekretaris 2</div><div class="card-title">Rendra Tri Wardhana</div></div>
-      <div class="card"><div class="card-label">Bendahara 1</div><div class="card-title">Thalita</div></div>
-      <div class="card"><div class="card-label">Bendahara 2</div><div class="card-title">Vanikiara Jovinca Elvarani</div></div>
+    <div class="org">
+      <div class="org-card org-top">
+        <div class="org-head">
+          <div class="org-avatar">JI</div>
+          <div>
+            <div class="card-label">Wali Kelas</div>
+            <div class="card-title">Juliana Istiqomah</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="org-line"></div>
+
+      <div class="org-card org-ketua">
+        <div class="org-avatar">AT</div>
+        <div><div class="card-label">Ketua Kelas</div><div class="card-title">Afanda Argya Tama</div></div>
+      </div>
+
+      <div class="org-line"></div>
+
+      <div class="org-tier">
+        <div class="org-card">
+          <div class="org-avatar">IH</div>
+          <div><div class="card-label">Wakil Ketua 1</div><div class="card-title">Imam Al Hafiz</div></div>
+        </div>
+        <div class="org-card">
+          <div class="org-avatar">ST</div>
+          <div><div class="card-label">Wakil Ketua 2</div><div class="card-title">Syifa Talita Shaki</div></div>
+        </div>
+      </div>
+
+      <div class="org-groups">
+        <div class="org-group">
+          <div class="org-group-title">Sekretaris</div>
+          <div class="org-members">
+            <div class="org-card">
+              <div class="org-avatar">DY</div>
+              <div><div class="card-label">Sekretaris 1</div><div class="card-title">Devina Yolanda</div></div>
+            </div>
+            <div class="org-card">
+              <div class="org-avatar">RW</div>
+              <div><div class="card-label">Sekretaris 2</div><div class="card-title">Rendra Tri Wardhana</div></div>
+            </div>
+          </div>
+        </div>
+        <div class="org-group">
+          <div class="org-group-title">Bendahara</div>
+          <div class="org-members">
+            <div class="org-card">
+              <div class="org-avatar">TH</div>
+              <div><div class="card-label">Bendahara 1</div><div class="card-title">Thalita</div></div>
+            </div>
+            <div class="org-card">
+              <div class="org-avatar">VE</div>
+              <div><div class="card-label">Bendahara 2</div><div class="card-title">Vanikiara Jovinca Elvarani</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section id="kontak">
-    <div class="section-label">// 03 / rules & walas</div>
-    <h2>Rules & Wali Kelas</h2>
-    <div class="grid-2">
-      <div class="card">
-        <div class="card-label">Rules GC XII TJKT</div>
-        <ul class="rules-list">
-          <li>❌ Berbicara kasar</li>
-          <li>❌ Menghina & mengejek</li>
-        </ul>
-      </div>
-      <div class="card">
-        <div class="card-label">Wali Kelas</div>
-        <div class="card-title">Juliana Istiqomah</div>
-        <div class="walas-box">“jangan circle'an oke❗❗, bersahabat sajaaa”</div>
-      </div>
+    <div class="section-label">// 03 / rules</div>
+    <h2>Rules Grup Kelas</h2>
+    <div class="card rules-card">
+      <div class="card-label">Rules GC XII TJKT</div>
+      <ul class="rules-list">
+        <li>❌ Berbicara kasar</li>
+        <li>❌ Menghina &amp; mengejek</li>
+      </ul>
     </div>
   </section>
 
