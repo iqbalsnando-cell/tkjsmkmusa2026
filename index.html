@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>XII TJKT — SMK Muhammadiyah 1 Pringsewu</title>
-  <meta name="description" content="Website resmi kelas XII TJKT SMK Muhammadiyah 1 Pringsewu. Terhubung, Tangguh, Berakhlak." />
+  <meta name="description" content="Website resmi kelas XII TJKT SMK Muhammadiyah 1 Pringsewu." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
       --card-hover: #162032;
       --accent: #a3e635;
       --accent-soft: rgba(163,230,53,0.12);
-      --text: #f1f5f9;
+      --text: #f8fafc;
       --muted: #94a3b8;
       --border: #1e293b;
       --radius: 18px;
@@ -27,168 +27,249 @@
       background: var(--bg);
       color: var(--text);
       line-height: 1.65;
+      overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
     img { max-width: 100%; display: block; }
 
-    /* NAV */
     nav {
       position: fixed; top: 0; width: 100%; z-index: 100;
-      background: rgba(6,10,18,0.9);
-      backdrop-filter: blur(18px);
+      background: rgba(6,10,18,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
-      padding: 15px 32px;
+      padding: 12px 20px;
       display: flex; justify-content: space-between; align-items: center;
     }
-    .logo { font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; gap: 10px; }
-    .logo-dot {
-      width: 10px; height: 10px; background: var(--accent);
-      border-radius: 50%; box-shadow: 0 0 14px var(--accent);
+    .logo {
+      font-weight: 700; font-size: 1.05rem;
+      display: flex; align-items: center; gap: 8px;
     }
-    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .logo-dot {
+      width: 9px; height: 9px; background: var(--accent);
+      border-radius: 50%; box-shadow: 0 0 12px var(--accent);
+    }
+    .nav-links { display: none; gap: 4px; align-items: center; }
     .nav-links a {
-      padding: 9px 18px; border-radius: 999px;
-      font-size: 0.9rem; font-weight: 500; color: var(--muted);
-      transition: all 0.25s;
+      padding: 8px 14px; border-radius: 999px;
+      font-size: 0.85rem; font-weight: 500; color: var(--muted);
+      transition: 0.2s;
     }
     .nav-links a:hover { color: var(--text); background: var(--card); }
     .nav-cta {
       background: var(--accent) !important;
       color: #0a0f18 !important;
       font-weight: 600 !important;
+      padding: 8px 16px !important;
+      border-radius: 999px;
+      font-size: 0.85rem;
     }
-    .nav-cta:hover { filter: brightness(1.08); }
+    .menu-btn {
+      display: flex; flex-direction: column; gap: 5px;
+      background: none; border: none; cursor: pointer; padding: 6px;
+    }
+    .menu-btn span {
+      display: block; width: 22px; height: 2px;
+      background: var(--text); border-radius: 2px; transition: 0.25s;
+    }
+    .menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+    .menu-btn.active span:nth-child(2) { opacity: 0; }
+    .menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-    /* BUTTONS */
+    .mobile-menu {
+      display: none; position: fixed; top: 56px; left: 0; right: 0;
+      background: rgba(6,10,18,0.97); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 20px 24px; z-index: 99;
+      flex-direction: column; gap: 6px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: 12px 16px; border-radius: 12px;
+      font-weight: 500; color: var(--muted);
+    }
+    .mobile-menu a:hover { background: var(--card); color: var(--text); }
+    .mobile-menu .nav-cta {
+      text-align: center; margin-top: 8px;
+      background: var(--accent) !important; color: #0a0f18 !important;
+    }
+
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 14px 28px; border-radius: 999px;
-      font-weight: 600; font-size: 0.95rem;
-      border: none; cursor: pointer; transition: all 0.25s; font-family: inherit;
+      padding: 13px 24px; border-radius: 999px;
+      font-weight: 600; font-size: 0.92rem;
+      border: none; cursor: pointer; transition: 0.25s; font-family: inherit;
     }
     .btn-primary { background: var(--accent); color: #0a0f18; }
     .btn-primary:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 28px rgba(163,230,53,0.28);
+      box-shadow: 0 8px 24px rgba(163,230,53,0.25);
     }
     .btn-outline {
       background: transparent; color: var(--text);
       border: 1.5px solid #334155;
     }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
     .btn-ghost {
       background: var(--card); color: var(--text); border: 1px solid var(--border);
     }
     .btn-ghost:hover { background: var(--card-hover); }
 
-    /* HERO */
     .hero {
-      position: relative; min-height: 100vh;
+      position: relative; min-height: 100vh; min-height: 100dvh;
       display: flex; align-items: flex-end; overflow: hidden;
     }
-    .hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .hero-bg {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+    }
     .hero-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, #060a12 8%, rgba(6,10,18,0.75) 45%, rgba(6,10,18,0.25) 75%, transparent);
+      background: linear-gradient(
+        to top,
+        #060a12 5%,
+        rgba(6,10,18,0.82) 35%,
+        rgba(6,10,18,0.45) 65%,
+        rgba(6,10,18,0.25) 100%
+      );
     }
-    .hero-content { position: relative; z-index: 10; padding: 0 32px 100px; max-width: 900px; }
+    .hero-content {
+      position: relative; z-index: 10;
+      padding: 0 20px 72px;
+      width: 100%; max-width: 640px;
+    }
     .hero-badge {
       display: inline-block;
       background: var(--accent-soft); color: var(--accent);
-      font-size: 0.82rem; font-weight: 600;
-      padding: 7px 16px; border-radius: 999px; margin-bottom: 20px;
-      border: 1px solid rgba(163,230,53,0.22);
+      font-size: 0.75rem; font-weight: 600;
+      padding: 6px 12px; border-radius: 999px; margin-bottom: 16px;
+      border: 1px solid rgba(163,230,53,0.25);
     }
     .hero h1 {
-      font-size: clamp(3.2rem, 9vw, 5.4rem);
-      font-weight: 800; line-height: 1.05; letter-spacing: -1.8px; margin-bottom: 14px;
+      font-size: clamp(2.6rem, 11vw, 4.5rem);
+      font-weight: 800; line-height: 1.05; letter-spacing: -1.5px; margin-bottom: 10px;
     }
     .hero h1 span { color: var(--accent); }
-    .hero-sub { font-size: 1.2rem; color: #cbd5e1; margin-bottom: 8px; }
-    .hero-motto { color: var(--accent); font-style: italic; font-size: 1.12rem; margin-bottom: 36px; }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    .hero-sub { font-size: 1.05rem; color: #cbd5e1; margin-bottom: 6px; }
+    .hero-motto { color: var(--accent); font-style: italic; font-size: 1rem; margin-bottom: 28px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 
-    /* SECTIONS */
-    section { padding: 100px 32px; max-width: 1140px; margin: 0 auto; }
+    section { padding: 72px 20px; max-width: 1080px; margin: 0 auto; }
     .section-label {
-      color: var(--accent); font-size: 0.78rem; font-weight: 600;
-      letter-spacing: 2.8px; text-transform: uppercase; margin-bottom: 12px;
+      color: var(--accent); font-size: 0.72rem; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px;
     }
     h2 {
-      font-size: clamp(1.85rem, 4vw, 2.35rem);
-      font-weight: 750; margin-bottom: 14px; letter-spacing: -0.6px;
+      font-size: clamp(1.6rem, 5vw, 2.15rem);
+      font-weight: 750; margin-bottom: 12px; letter-spacing: -0.4px;
     }
-    .section-desc { color: var(--muted); max-width: 580px; margin-bottom: 44px; font-size: 1.05rem; }
+    .section-desc {
+      color: var(--muted); max-width: 520px; margin-bottom: 36px; font-size: 0.98rem;
+    }
 
-    /* STATS */
-    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
     .stat-card {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 32px 20px; text-align: center;
-      transition: all 0.3s;
+      border-radius: var(--radius); padding: 24px 16px; text-align: center;
+      transition: 0.25s;
     }
-    .stat-card:hover { background: var(--card-hover); border-color: #334155; transform: translateY(-5px); }
-    .stat-card strong { display: block; font-size: 2.3rem; font-weight: 800; color: var(--accent); margin-bottom: 6px; }
-    .stat-card span { font-size: 0.9rem; color: var(--muted); }
+    .stat-card:hover { background: var(--card-hover); border-color: #334155; }
+    .stat-card strong {
+      display: block; font-size: 1.9rem; font-weight: 800;
+      color: var(--accent); margin-bottom: 4px;
+    }
+    .stat-card span { font-size: 0.82rem; color: var(--muted); }
 
-    /* CARDS */
-    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .grid-cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
     .card {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 26px; transition: all 0.3s;
+      border-radius: var(--radius); padding: 20px; transition: 0.25s;
     }
-    .card:hover { background: var(--card-hover); border-color: #334155; transform: translateY(-4px); }
+    .card:hover { background: var(--card-hover); border-color: #334155; }
     .card-label {
-      font-size: 0.78rem; font-weight: 600; color: var(--accent);
-      text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 10px;
+      font-size: 0.72rem; font-weight: 600; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
     }
-    .card-title { font-size: 1.18rem; font-weight: 700; }
+    .card-title { font-size: 1.08rem; font-weight: 700; }
 
-    /* RULES */
-    .rules-list { list-style: none; margin-top: 14px; }
-    .rules-list li { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 1.05rem; }
+    .grid-2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
+
+    .rules-list { list-style: none; margin-top: 10px; }
+    .rules-list li {
+      padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 0.98rem;
+    }
     .rules-list li:last-child { border-bottom: none; }
     .walas-box {
-      background: linear-gradient(135deg, rgba(163,230,53,0.09), transparent);
+      background: linear-gradient(135deg, rgba(163,230,53,0.08), transparent);
       border-left: 4px solid var(--accent);
-      padding: 18px 20px; border-radius: 0 14px 14px 0;
-      margin-top: 18px; font-style: italic; color: #e2e8f0;
+      padding: 16px 18px; border-radius: 0 12px 12px 0;
+      margin-top: 14px; font-style: italic; color: #e2e8f0; font-size: 0.95rem;
     }
 
-    /* BIRTHDAY */
-    .bday-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(172px, 1fr)); gap: 12px; }
+    .bday-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
     .bday-item {
       background: var(--card); border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px 18px; transition: all 0.25s;
+      border-radius: 14px; padding: 14px; transition: 0.2s;
     }
-    .bday-item:hover { border-color: var(--accent); background: var(--card-hover); }
-    .bday-item strong { display: block; font-size: 0.98rem; margin-bottom: 4px; }
-    .bday-item span { font-size: 0.82rem; color: var(--muted); }
+    .bday-item:hover { border-color: var(--accent); }
+    .bday-item strong { display: block; font-size: 0.92rem; margin-bottom: 3px; }
+    .bday-item span { font-size: 0.78rem; color: var(--muted); }
 
-    /* CTA */
     .cta-box {
       background: linear-gradient(145deg, #0f1623, #0c121e);
-      border: 1px solid var(--border); border-radius: 28px;
-      padding: 56px 44px; text-align: center;
+      border: 1px solid var(--border); border-radius: 24px;
+      padding: 40px 24px; text-align: center;
     }
-    .cta-box h3 { font-size: 1.75rem; margin-bottom: 12px; }
-    .cta-box p { color: var(--muted); margin-bottom: 30px; max-width: 460px; margin-left: auto; margin-right: auto; }
+    .cta-box h3 { font-size: 1.4rem; margin-bottom: 10px; }
+    .cta-box p {
+      color: var(--muted); margin-bottom: 24px;
+      font-size: 0.95rem; max-width: 400px; margin-left: auto; margin-right: auto;
+    }
+    .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
     footer {
-      border-top: 1px solid var(--border); padding: 44px 32px;
-      text-align: center; color: var(--muted); font-size: 0.9rem;
+      border-top: 1px solid var(--border);
+      padding: 36px 20px; text-align: center;
+      color: var(--muted); font-size: 0.85rem;
     }
     footer strong { color: var(--text); }
 
-    @media (max-width: 900px) { .stats { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 700px) {
-      .nav-links { display: none; }
-      .grid-2 { grid-template-columns: 1fr; }
-      .hero-content { padding-bottom: 72px; }
-      .cta-box { padding: 40px 24px; }
-      section { padding: 72px 20px; }
-      nav { padding: 14px 20px; }
+    @media (min-width: 640px) {
+      nav { padding: 14px 28px; }
+      .logo { font-size: 1.12rem; }
+      .hero-content { padding: 0 28px 88px; max-width: 700px; }
+      .hero-sub { font-size: 1.15rem; }
+      section { padding: 88px 28px; }
+      .stats { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      .stat-card { padding: 28px 18px; }
+      .stat-card strong { font-size: 2.1rem; }
+      .grid-cards { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .bday-grid { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+      .cta-box { padding: 48px 36px; }
+      .cta-box h3 { font-size: 1.6rem; }
+    }
+
+    @media (min-width: 900px) {
+      .nav-links { display: flex; }
+      .menu-btn { display: none; }
+      .mobile-menu { display: none !important; }
+      .grid-cards { grid-template-columns: repeat(3, 1fr); }
+      .grid-2 { grid-template-columns: 1fr 1fr; gap: 18px; }
+      .bday-grid { grid-template-columns: repeat(4, 1fr); }
+      .hero-content { padding: 0 32px 100px; }
+      section { padding: 100px 32px; }
     }
   </style>
 </head>
@@ -203,10 +284,21 @@
       <a href="#birthday">Birthday</a>
       <a href="pesan.html" class="nav-cta">Kirim Pesan</a>
     </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#tentang">Tentang</a>
+    <a href="#struktur">Struktur</a>
+    <a href="#rules">Rules</a>
+    <a href="#birthday">Birthday</a>
+    <a href="pesan.html" class="nav-cta">Kirim Pesan</a>
+  </div>
+
   <section class="hero">
-    <img class="hero-bg" src="https://i.ibb.co.com/LhXVwz2w/after-sas-xtekaje-xitekaje-smkmusapringsewu-1.webp" alt="Siswa XII TJKT" />
+    <img class="hero-bg" src="background.jpg" alt="Background XII TJKT" />
     <div class="hero-overlay"></div>
     <div class="hero-content">
       <div class="hero-badge">SMK Muhammadiyah 1 Pringsewu · 2026/2027</div>
@@ -236,7 +328,7 @@
     <div class="section-label">// 02 / struktur</div>
     <h2>Struktur Organisasi</h2>
     <p class="section-desc">Setiap orang adalah node penting dalam jaringan kelas ini.</p>
-    <div class="grid-3">
+    <div class="grid-cards">
       <div class="card"><div class="card-label">Ketua Kelas</div><div class="card-title">Afanda Argya Tama</div></div>
       <div class="card"><div class="card-label">Wakil Ketua 1</div><div class="card-title">Imam Al Hafiz</div></div>
       <div class="card"><div class="card-label">Wakil Ketua 2</div><div class="card-title">Syifa Talita Shaki</div></div>
@@ -319,7 +411,7 @@
     <div class="cta-box">
       <h3>Ingin menyampaikan pesan?</h3>
       <p>Teman, alumni, guru, atau orang tua — silakan tinggalkan semangat untuk angkatan XII TJKT.</p>
-      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap;">
+      <div class="cta-actions">
         <a href="pesan.html" class="btn btn-primary">Kirim Pesan Sekarang</a>
         <a href="#tentang" class="btn btn-ghost">Kembali ke Atas</a>
       </div>
@@ -327,8 +419,23 @@
   </section>
 
   <footer>
-    <strong>XII TJKT</strong> · SMK Muhammadiyah 1 Pringsewu · Tahun Ajaran 2026/2027<br>
+    <strong>XII TJKT</strong> · SMK Muhammadiyah 1 Pringsewu · 2026/2027<br>
     Terhubung, Tangguh, Berakhlak.
   </footer>
+
+  <script>
+    const btn = document.getElementById('menuBtn');
+    const menu = document.getElementById('mobileMenu');
+    btn.addEventListener('click', () => {
+      btn.classList.toggle('active');
+      menu.classList.toggle('open');
+    });
+    menu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        btn.classList.remove('active');
+        menu.classList.remove('open');
+      });
+    });
+  </script>
 </body>
 </html>
