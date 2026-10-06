@@ -11,13 +11,14 @@
   <style>
     :root {
       --bg: #060a12;
-      --card: #0f1623;
-      --card-hover: #162032;
+      --card: rgba(15, 22, 35, 0.92);
+      --card-solid: #0f1623;
+      --card-hover: rgba(22, 32, 50, 0.95);
       --accent: #a3e635;
-      --accent-soft: rgba(163,230,53,0.12);
+      --accent-soft: rgba(163,230,53,0.14);
       --text: #f8fafc;
       --muted: #94a3b8;
-      --border: #1e293b;
+      --border: rgba(30, 41, 59, 0.9);
       --radius: 18px;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,9 +32,18 @@
     }
     a { color: inherit; text-decoration: none; }
 
+    .bg-fixed {
+      position: fixed; inset: 0; z-index: -2;
+      background: url('background.jpg') center/cover no-repeat;
+    }
+    .bg-overlay {
+      position: fixed; inset: 0; z-index: -1;
+      background: linear-gradient(180deg, rgba(6,10,18,0.7) 0%, rgba(6,10,18,0.9) 50%, #060a12 100%);
+    }
+
     nav {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(6,10,18,0.9);
+      background: rgba(6,10,18,0.88);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
@@ -53,7 +63,7 @@
       padding: 8px 14px; border-radius: 999px;
       font-size: 0.85rem; font-weight: 500; color: var(--muted);
     }
-    .nav-links a:hover { color: var(--text); background: var(--card); }
+    .nav-links a:hover { color: var(--text); background: var(--card-solid); }
     .nav-cta {
       background: var(--accent) !important;
       color: #0a0f18 !important;
@@ -101,33 +111,24 @@
       transform: translateY(-2px);
       box-shadow: 0 8px 24px rgba(163,230,53,0.25);
     }
-    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+    .btn-primary:disabled {
+      opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none;
+    }
     .btn-outline {
       background: transparent; color: var(--text);
       border: 1.5px solid #334155;
     }
     .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
     .btn-ghost {
-      background: var(--card); color: var(--text); border: 1px solid var(--border);
+      background: var(--card-solid); color: var(--text);
+      border: 1px solid var(--border);
     }
-    .btn-ghost:hover { background: var(--card-hover); }
+    .btn-ghost:hover { background: #162032; }
 
     .page-hero {
-      position: relative;
-      padding: 100px 20px 48px;
+      padding: 100px 20px 40px;
       text-align: center;
-      overflow: hidden;
     }
-    .page-hero-bg {
-      position: absolute; inset: 0;
-      background: url('background.jpg') center/cover no-repeat;
-      filter: brightness(0.35);
-    }
-    .page-hero-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to bottom, rgba(6,10,18,0.4), var(--bg));
-    }
-    .page-hero-content { position: relative; z-index: 2; }
     .page-hero .badge {
       display: inline-block;
       background: var(--accent-soft); color: var(--accent);
@@ -141,7 +142,7 @@
       font-weight: 800; margin-bottom: 10px; letter-spacing: -0.5px;
     }
     .page-hero p {
-      color: var(--muted); max-width: 420px; margin: 0 auto; font-size: 0.95rem;
+      color: var(--muted); max-width: 440px; margin: 0 auto; font-size: 0.95rem;
     }
 
     .container {
@@ -155,7 +156,8 @@
       border: 1px solid var(--border);
       border-radius: 20px;
       padding: 28px 20px;
-      margin-bottom: 44px;
+      margin-bottom: 36px;
+      backdrop-filter: blur(10px);
     }
     .form-card h2 {
       font-size: 1.15rem; margin-bottom: 24px;
@@ -173,7 +175,7 @@
     .form-group.full { grid-column: 1 / -1; }
     label { font-size: 0.85rem; font-weight: 600; color: #cbd5e1; }
     input, select, textarea {
-      background: var(--bg);
+      background: rgba(6,10,18,0.7);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 13px 15px;
@@ -190,54 +192,14 @@
       display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap;
     }
 
-    .messages-header {
-      display: flex; align-items: center; gap: 10px;
-      margin-bottom: 18px; flex-wrap: wrap;
-    }
-    .messages-header h2 {
-      font-size: 1.15rem;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .messages-header h2 span.dot {
-      width: 8px; height: 8px; background: var(--accent); border-radius: 50%;
-    }
-    .msg-count {
+    .info-box {
       background: var(--accent-soft);
-      color: var(--accent);
-      font-size: 0.78rem; font-weight: 600;
-      padding: 4px 11px; border-radius: 999px;
-    }
-
-    .messages-list { display: flex; flex-direction: column; gap: 12px; }
-    .msg-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      transition: 0.2s;
-    }
-    .msg-card:hover { border-color: #334155; background: var(--card-hover); }
-    .msg-top {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      gap: 12px; margin-bottom: 10px; flex-wrap: wrap;
-    }
-    .msg-author { font-weight: 700; font-size: 1.02rem; }
-    .msg-meta { font-size: 0.8rem; color: var(--muted); margin-top: 2px; }
-    .msg-date { font-size: 0.75rem; color: var(--muted); }
-    .msg-body {
-      color: #e2e8f0; font-size: 0.94rem; line-height: 1.65; white-space: pre-wrap;
-    }
-    .msg-tags { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-    .tag {
-      font-size: 0.72rem; font-weight: 600;
-      padding: 4px 11px; border-radius: 999px;
-      background: var(--accent-soft); color: var(--accent);
-      border: 1px solid rgba(163,230,53,0.2);
-    }
-
-    .empty-state {
-      text-align: center; padding: 48px 20px; color: var(--muted);
-      background: var(--card); border: 1px dashed var(--border); border-radius: 16px;
+      border: 1px solid rgba(163,230,53,0.25);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 28px;
+      font-size: 0.9rem;
+      color: #d9f99d;
     }
 
     .toast {
@@ -260,11 +222,10 @@
 
     @media (min-width: 640px) {
       nav { padding: 14px 28px; }
-      .page-hero { padding: 110px 28px 56px; }
+      .page-hero { padding: 110px 28px 48px; }
       .container { padding: 0 28px 90px; }
       .form-card { padding: 32px 28px; }
       .form-grid { grid-template-columns: 1fr 1fr; gap: 18px; }
-      .msg-card { padding: 20px 22px; }
     }
     @media (min-width: 900px) {
       .nav-links { display: flex; }
@@ -274,6 +235,8 @@
   </style>
 </head>
 <body>
+  <div class="bg-fixed"></div>
+  <div class="bg-overlay"></div>
 
   <nav>
     <a href="index.html" class="logo">
@@ -282,7 +245,7 @@
     <div class="nav-links">
       <a href="index.html">Beranda</a>
       <a href="index.html#struktur">Struktur</a>
-      <a href="index.html#birthday">Birthday</a>
+      <a href="index.html#pesan">Pesan</a>
       <a href="pesan.html" class="nav-cta">Kirim Pesan</a>
     </div>
     <button class="menu-btn" id="menuBtn" aria-label="Menu">
@@ -293,45 +256,46 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="index.html">Beranda</a>
     <a href="index.html#struktur">Struktur</a>
-    <a href="index.html#birthday">Birthday</a>
+    <a href="index.html#pesan">Pesan</a>
     <a href="pesan.html" class="nav-cta">Kirim Pesan</a>
   </div>
 
   <div class="page-hero">
-    <div class="page-hero-bg"></div>
-    <div class="page-hero-overlay"></div>
-    <div class="page-hero-content">
-      <div class="badge">Buku Tamu</div>
-      <h1>Kirim Pesan untuk XII TJKT</h1>
-      <p>Teman, alumni, guru, atau orang tua — tinggalkan doa dan semangat untuk angkatan ini.</p>
-    </div>
+    <div class="badge">Buku Tamu Kelas</div>
+    <h1>Kirim Pesan untuk XII TJKT</h1>
+    <p>Siapa saja boleh mengirim — siswa, guru, orang tua, alumni, atau teman. Pesanmu akan tampil di halaman utama.</p>
   </div>
 
   <div class="container">
+    <div class="info-box">
+      Setelah dikirim, pesan akan muncul di <strong>halaman utama bagian bawah</strong> (bagian Pesan Masuk).
+    </div>
+
     <div class="form-card">
       <h2><span></span> Form Pesan</h2>
       <form id="pesanForm">
         <div class="form-grid">
           <div class="form-group">
             <label for="nama">Nama Lengkap *</label>
-            <input type="text" id="nama" placeholder="Contoh: Ahmad Fauzan" required maxlength="60" />
+            <input type="text" id="nama" placeholder="Nama pengirim" required maxlength="60" />
           </div>
           <div class="form-group">
-            <label for="kelas">Kelas *</label>
-            <input type="text" id="kelas" placeholder="Contoh: XII TJKT / Umum" required maxlength="40" />
+            <label for="kelas">Kelas / Asal *</label>
+            <input type="text" id="kelas" placeholder="Contoh: XII TJKT / Umum / Alumni" required maxlength="40" />
           </div>
           <div class="form-group">
-            <label for="jurusan">Jurusan / Asal *</label>
-            <input type="text" id="jurusan" placeholder="Contoh: TJKT / Alumni / Guru" required maxlength="40" />
+            <label for="jurusan">Jurusan / Keterangan *</label>
+            <input type="text" id="jurusan" placeholder="Contoh: TJKT / Guru / Orang Tua" required maxlength="40" />
           </div>
           <div class="form-group">
             <label for="status">Status</label>
             <select id="status">
               <option value="Siswa">Siswa</option>
-              <option value="Alumni">Alumni</option>
               <option value="Guru">Guru</option>
               <option value="Orang Tua">Orang Tua</option>
-              <option value="Tamu">Tamu</option>
+              <option value="Alumni">Alumni</option>
+              <option value="Teman">Teman</option>
+              <option value="Lainnya">Lainnya</option>
             </select>
           </div>
           <div class="form-group full">
@@ -341,16 +305,11 @@
         </div>
         <div class="form-actions">
           <button type="submit" class="btn btn-primary" id="submitBtn">Kirim Pesan</button>
-          <button type="reset" class="btn btn-ghost">Reset Form</button>
-          <a href="index.html" class="btn btn-outline">Kembali</a>
+          <button type="reset" class="btn btn-ghost">Reset</button>
+          <a href="index.html#pesan" class="btn btn-outline">Lihat Semua Pesan</a>
         </div>
       </form>
     </div>
-
-    <div class="messages-header">
-      <h2><span class="dot"></span> Pesan Masuk <span class="msg-count" id="msgCount">0</span></h2>
-    </div>
-    <div class="messages-list" id="messagesList"></div>
   </div>
 
   <div class="toast" id="toast">Pesan berhasil dikirim!</div>
@@ -370,39 +329,6 @@
     function saveMessages(list) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
     }
-    function formatDate(iso) {
-      return new Date(iso).toLocaleDateString('id-ID', {
-        day: 'numeric', month: 'short', year: 'numeric',
-        hour: '2-digit', minute: '2-digit'
-      });
-    }
-    function escapeHtml(str) {
-      const d = document.createElement('div');
-      d.textContent = str;
-      return d.innerHTML;
-    }
-    function renderMessages() {
-      const list = getMessages();
-      const box = document.getElementById('messagesList');
-      document.getElementById('msgCount').textContent = list.length;
-      if (!list.length) {
-        box.innerHTML = '<div class="empty-state"><p>Belum ada pesan. Jadilah yang pertama!</p></div>';
-        return;
-      }
-      box.innerHTML = list.map(m => `
-        <div class="msg-card">
-          <div class="msg-top">
-            <div>
-              <div class="msg-author">${escapeHtml(m.nama)}</div>
-              <div class="msg-meta">${escapeHtml(m.kelas)} · ${escapeHtml(m.jurusan)}</div>
-            </div>
-            <div class="msg-date">${formatDate(m.waktu)}</div>
-          </div>
-          <div class="msg-body">${escapeHtml(m.pesan)}</div>
-          <div class="msg-tags"><span class="tag">${escapeHtml(m.status || 'Tamu')}</span></div>
-        </div>
-      `).join('');
-    }
     function showToast(msg) {
       const t = document.getElementById('toast');
       t.textContent = msg;
@@ -415,6 +341,7 @@
       const btn = document.getElementById('submitBtn');
       btn.disabled = true;
       btn.textContent = 'Mengirim...';
+
       const data = {
         nama: document.getElementById('nama').value.trim(),
         kelas: document.getElementById('kelas').value.trim(),
@@ -423,13 +350,18 @@
         pesan: document.getElementById('pesan').value.trim(),
         waktu: new Date().toISOString()
       };
+
       const list = getMessages();
       list.unshift(data);
       saveMessages(list);
+
       this.reset();
-      renderMessages();
-      showToast('Pesan berhasil dikirim!');
-      setTimeout(() => { btn.disabled = false; btn.textContent = 'Kirim Pesan'; }, 500);
+      showToast('Pesan berhasil dikirim! Lihat di halaman utama.');
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = 'Kirim Pesan';
+      }, 500);
     });
 
     const menuBtn = document.getElementById('menuBtn');
@@ -444,8 +376,6 @@
         mobileMenu.classList.remove('open');
       });
     });
-
-    renderMessages();
   </script>
 </body>
 </html>
