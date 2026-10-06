@@ -380,6 +380,36 @@
     .btn-disabled{opacity:.45;pointer-events:none;cursor:not-allowed}
     @media(max-width:760px){.social-grid{grid-template-columns:1fr}}
 
+    /* TOMBOL MUSIK */
+    .music-btn{
+      position:fixed;right:18px;bottom:18px;z-index:120;
+      display:flex;align-items:center;gap:10px;
+      height:50px;padding:0 18px 0 14px;border-radius:999px;
+      border:1px solid rgba(178,243,75,.35);
+      background:rgba(8,24,41,.88);color:var(--text);
+      font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      box-shadow:0 10px 30px rgba(0,0,0,.3);transition:.25s;
+    }
+    .music-btn:hover{transform:translateY(-2px);border-color:var(--accent)}
+    .music-btn svg{width:22px;height:22px;color:var(--accent);flex:0 0 auto}
+    .music-btn .icon-pause{display:none}
+    .music-btn.playing{box-shadow:0 0 22px rgba(178,243,75,.35)}
+    .music-btn.playing .icon-play{display:none}
+    .music-btn.playing .icon-pause{display:block}
+    .music-bars{display:none;align-items:flex-end;gap:2px;height:14px}
+    .music-btn.playing .music-bars{display:flex}
+    .music-bars i{width:3px;background:var(--accent);border-radius:2px;animation:bar 1s ease-in-out infinite}
+    .music-bars i:nth-child(1){height:60%;animation-delay:0s}
+    .music-bars i:nth-child(2){height:100%;animation-delay:.2s}
+    .music-bars i:nth-child(3){height:40%;animation-delay:.4s}
+    @keyframes bar{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+    @media(max-width:480px){
+      .music-btn{right:12px;bottom:12px;height:46px;padding:0 14px 0 12px}
+      .music-btn .music-label{display:none}
+    }
+    @media (prefers-reduced-motion:reduce){.music-bars i{animation:none}}
+
     /* ANIMASI MASUK */
     @keyframes fadeUp{
       from{opacity:0;transform:translateY(30px)}
@@ -773,6 +803,14 @@
     <span class="footer-dev">Dikembangkan oleh Hendra Prayogi &amp; Nando Iqbal Setyanto</span>
   </footer>
 
+  <audio id="bgm" src="music.mp3" loop preload="auto"></audio>
+  <button class="music-btn" id="musicBtn" type="button" aria-label="Putar musik" aria-pressed="false">
+    <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.5-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></svg>
+    <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg>
+    <span class="music-bars" aria-hidden="true"><i></i><i></i><i></i></span>
+    <span class="music-label" id="musicLabel">Putar Musik</span>
+  </button>
+
   <script>
     // ========== GANTI DENGAN URL APPS SCRIPT KAMU ==========
     const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1CXmxf_9_hhfLzEjghtnLz19tKrxbMbZ2d72-FLzKex1HyhQHygJKDHeSWltYIZwm/exec';
@@ -844,6 +882,49 @@
           mobileMenu.classList.remove('open');
         });
       });
+    }
+
+    // ========== MUSIK ==========
+    const AUTO_START = true;   // true = musik mulai otomatis di interaksi pertama pengunjung
+    const bgm = document.getElementById('bgm');
+    const musicBtn = document.getElementById('musicBtn');
+    const musicLabel = document.getElementById('musicLabel');
+    bgm.volume = 0.4;
+
+    function updateMusicBtn() {
+      const on = !bgm.paused;
+      musicBtn.classList.toggle('playing', on);
+      musicBtn.setAttribute('aria-pressed', on);
+      musicBtn.setAttribute('aria-label', on ? 'Jeda musik' : 'Putar musik');
+      musicLabel.textContent = on ? 'Jeda Musik' : 'Putar Musik';
+    }
+
+    async function startMusic() {
+      try { await bgm.play(); } catch (e) {}
+      updateMusicBtn();
+    }
+
+    const firstEvents = ['pointerdown', 'keydown'];
+    function removeFirstListeners() {
+      firstEvents.forEach(ev => document.removeEventListener(ev, onFirstInteraction));
+    }
+    function onFirstInteraction(e) {
+      if (musicBtn.contains(e.target)) return; // biarkan tombol musik yang mengatur
+      removeFirstListeners();
+      startMusic();
+    }
+
+    musicBtn.addEventListener('click', () => {
+      removeFirstListeners();
+      if (bgm.paused) startMusic();
+      else { bgm.pause(); updateMusicBtn(); }
+    });
+    bgm.addEventListener('play', updateMusicBtn);
+    bgm.addEventListener('pause', updateMusicBtn);
+
+    if (AUTO_START) {
+      startMusic(); // berhasil di sebagian browser; jika diblokir, mulai di interaksi pertama
+      firstEvents.forEach(ev => document.addEventListener(ev, onFirstInteraction));
     }
 
     renderMessages();
