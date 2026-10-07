@@ -1286,7 +1286,84 @@
     }
 
     .footer-dev{
-      font-size:.76rem
+      font-size:.76rem;
+      color:var(--muted);
+      display:block;
+      margin-top:6px;
+    }
+
+    /* =========================
+       FOOTER
+    ========================= */
+
+    footer{
+      text-align:center;
+      padding:48px 24px 100px;
+      color:var(--muted);
+      font-size:.88rem;
+      line-height:1.8;
+      border-top:1px solid var(--border);
+      max-width:var(--max);
+      margin:0 auto;
+    }
+
+    footer strong{
+      color:var(--text);
+      font-weight:800;
+    }
+
+    .footer-logo{
+      height:52px;
+      width:auto;
+      margin:0 auto 14px;
+      object-fit:contain;
+      display:block;
+    }
+
+    .footer-line{
+      display:block;
+      margin:4px 0;
+    }
+
+    .footer-motto{
+      color:var(--muted-2);
+      font-weight:600;
+      margin:8px 0 4px;
+    }
+
+    /* =========================
+       SCROLL BLUR TEXT
+    ========================= */
+
+    .reveal{
+      opacity:0;
+      filter:blur(12px);
+      transform:translateY(28px);
+      transition:
+        opacity .7s cubic-bezier(.2,.7,.2,1),
+        filter .7s cubic-bezier(.2,.7,.2,1),
+        transform .7s cubic-bezier(.2,.7,.2,1);
+      will-change:opacity,filter,transform;
+    }
+
+    .reveal.revealed{
+      opacity:1;
+      filter:blur(0);
+      transform:translateY(0);
+    }
+
+    .reveal-d1{transition-delay:.08s}
+    .reveal-d2{transition-delay:.18s}
+    .reveal-d3{transition-delay:.28s}
+    .reveal-d4{transition-delay:.38s}
+
+    @media(prefers-reduced-motion:reduce){
+      .reveal{
+        opacity:1;
+        filter:none;
+        transform:none;
+        transition:none;
+      }
     }
 
     /* =========================
@@ -2034,6 +2111,15 @@
       .reply-hint{
         order:2
       }
+
+      footer{
+        padding:40px 18px 90px;
+        font-size:.82rem;
+      }
+
+      .footer-logo{
+        height:44px;
+      }
     }
 
     @media(max-width:480px){
@@ -2152,6 +2238,21 @@
 
       .music-btn .music-label{
         display:none
+      }
+
+      footer{
+        padding:36px 16px 88px;
+        font-size:.78rem;
+        line-height:1.75;
+      }
+
+      .footer-logo{
+        height:40px;
+        margin-bottom:12px;
+      }
+
+      .footer-line{
+        padding:0 4px;
       }
     }
 
@@ -2330,11 +2431,11 @@
 
   <section id="tentang">
 
-    <div class="section-label">// 01 / tentang</div>
+    <div class="section-label reveal">// 01 / tentang</div>
 
-    <h2>Tentang Kelas Kami</h2>
+    <h2 class="reveal reveal-d1">Tentang Kelas Kami</h2>
 
-    <p class="section-desc">
+    <p class="section-desc reveal reveal-d2">
       Satu Tempat Seribu Cerita
     </p>
 
@@ -2369,11 +2470,11 @@
 
   <section id="kegiatan">
 
-    <div class="section-label">// 02 / struktur</div>
+    <div class="section-label reveal">// 02 / struktur</div>
 
-    <h2>Struktur Kelas</h2>
+    <h2 class="reveal reveal-d1">Struktur Kelas</h2>
 
-    <p class="section-desc">
+    <p class="section-desc reveal reveal-d2">
       Setiap orang adalah node penting dalam jaringan kelas ini.
     </p>
 
@@ -2542,9 +2643,9 @@
 
   <section id="rules">
 
-    <div class="section-label">// 03 / rules</div>
+    <div class="section-label reveal">// 03 / rules</div>
 
-    <h2>Rules Grup Kelas</h2>
+    <h2 class="reveal reveal-d1">Rules Grup Kelas</h2>
 
     <div class="card rules-card">
 
@@ -2566,11 +2667,11 @@
 
   <section id="birthday">
 
-    <div class="section-label">// 04 / birthday</div>
+    <div class="section-label reveal">// 04 / birthday</div>
 
-    <h2>Data Birthday</h2>
+    <h2 class="reveal reveal-d1">Data Birthday</h2>
 
-    <p class="section-desc">
+    <p class="section-desc reveal reveal-d2">
       Jangan lupa ucapkan selamat ulang tahun ke teman sekelasmu.
     </p>
 
@@ -2628,11 +2729,11 @@
 
   <section id="galeri">
 
-    <div class="section-label">// 05 / galeri</div>
+    <div class="section-label reveal">// 05 / galeri</div>
 
-    <h2>Galeri Foto</h2>
+    <h2 class="reveal reveal-d1">Galeri Foto</h2>
 
-    <p class="section-desc">
+    <p class="section-desc reveal reveal-d2">
       Potongan momen dan kenangan kelas XII TJKT.
     </p>
 
@@ -2756,11 +2857,11 @@
 
   <section id="album">
 
-    <div class="section-label">// 06 / album</div>
+    <div class="section-label reveal">// 06 / album</div>
 
-    <h2>Album Kenangan</h2>
+    <h2 class="reveal reveal-d1">Album Kenangan</h2>
 
-    <p class="section-desc">
+    <p class="section-desc reveal reveal-d2">
       Geser untuk melihat lembar-lembar kenangan kelas.
     </p>
 
@@ -2911,11 +3012,11 @@
 
   <section id="sosmed">
 
-    <div class="section-label">// 07 / sosmed</div>
+    <div class="section-label reveal">// 07 / sosmed</div>
 
-    <h2>Media Sosial Kelas</h2>
+    <h2 class="reveal reveal-d1">Media Sosial Kelas</h2>
 
-    <p class="section-desc">
+    <p class="section-desc reveal reveal-d2">
       Ikuti kabar terbaru dan dokumentasi kegiatan XII TJKT lewat media sosial kami.
     </p>
 
@@ -3009,11 +3110,11 @@
 
   <section id="developer">
 
-    <div class="section-label">// 08 / developer</div>
+    <div class="section-label reveal">// 08 / developer</div>
 
-    <h2>Pengembang Website</h2>
+    <h2 class="reveal reveal-d1">Pengembang Website</h2>
 
-    <p class="section-desc">
+    <p class="section-desc reveal reveal-d2">
       Website ini dibuat oleh dua teman sekelas kita.
     </p>
 
@@ -3054,11 +3155,11 @@
 
   <section id="pesan" class="messages-section">
 
-    <div class="section-label">// 09 / pesan</div>
+    <div class="section-label reveal">// 09 / pesan</div>
 
     <div class="messages-header">
 
-      <h2>Pesan Masuk</h2>
+      <h2 class="reveal reveal-d1">Pesan Masuk</h2>
 
       <span class="msg-count" id="msgCount">
         0 pesan
@@ -3066,7 +3167,7 @@
 
     </div>
 
-    <p class="section-desc">
+    <p class="section-desc reveal reveal-d2">
       Pesan dari siswa, guru, orang tua, alumni, dan siapa saja
       yang ingin memberikan semangat.
     </p>
@@ -3137,18 +3238,17 @@
       src="logo-tjkt.png"
       alt="Logo TJKT"
       class="footer-logo"
-      style="height:52px;width:auto;margin:0 auto 12px;object-fit:contain"
     >
 
-    <strong>XII TJKT</strong>
-    · SMK Muhammadiyah 1 Pringsewu
-    · 2024/2027
+    <span class="footer-line">
+      <strong>XII TJKT</strong>
+      · SMK Muhammadiyah 1 Pringsewu
+      · 2024/2027
+    </span>
 
-    <br>
-
-    Terhubung, Tangguh, Berakhlak.
-
-    <br>
+    <span class="footer-line footer-motto">
+      Terhubung, Tangguh, Berakhlak.
+    </span>
 
     <span class="footer-dev">
       Dikembangkan oleh Hendra Prayogi &amp; Nando Iqbal Setyanto
@@ -5321,6 +5421,67 @@
       layout();
 
       start();
+
+    })();
+
+
+    /* =====================================================
+       SCROLL REVEAL (blur text)
+    ===================================================== */
+
+    (function(){
+
+      const prefersReduce =
+        window.matchMedia(
+          '(prefers-reduced-motion: reduce)'
+        ).matches;
+
+      const items =
+        document.querySelectorAll('.reveal');
+
+      if (!items.length) {
+        return;
+      }
+
+      if (prefersReduce) {
+
+        items.forEach(el => {
+          el.classList.add('revealed');
+        });
+
+        return;
+      }
+
+      const observer =
+        new IntersectionObserver(
+          (entries) => {
+
+            entries.forEach(entry => {
+
+              if (entry.isIntersecting) {
+
+                entry.target.classList.add(
+                  'revealed'
+                );
+
+                observer.unobserve(
+                  entry.target
+                );
+
+              }
+
+            });
+
+          },
+          {
+            threshold:0.15,
+            rootMargin:'0px 0px -40px 0px'
+          }
+        );
+
+      items.forEach(el => {
+        observer.observe(el);
+      });
 
     })();
 
