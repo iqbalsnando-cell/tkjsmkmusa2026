@@ -8,12 +8,12 @@
 // 4. Copy object firebaseConfig di bawah ini
 
 const firebaseConfig = {
-  apiKey: "GANTI_DENGAN_API_KEY_KAMU",
-  authDomain: "GANTI_DENGAN_AUTH_DOMAIN.firebaseapp.com",
-  projectId: "GANTI_DENGAN_PROJECT_ID",
-  storageBucket: "GANTI_DENGAN_PROJECT_ID.appspot.com",
-  messagingSenderId: "GANTI_DENGAN_SENDER_ID",
-  appId: "GANTI_DENGAN_APP_ID"
+  apiKey: "AIzaSyC4IOZcDUSZ09NIUFUXvVQwGLZOuX5CHz4",
+  authDomain: "base-d7f2a.firebaseapp.com",
+  projectId: "base-d7f2a",
+  storageBucket: "base-d7f2a.firebasestorage.app",
+  messagingSenderId: "270938168800",
+  appId: "1:270938168800:web:2f57693c7091ecba0e5f85"
 };
 
 // Inisialisasi (dipakai di index.html & admin.html)
