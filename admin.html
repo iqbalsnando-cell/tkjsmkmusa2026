@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard — XII TJKT</title>
+  <link rel="icon" type="image/png" href="assets/logo-tjkt.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1a2b;
+      --bg-deep: #081522;
+      --surface: rgba(17,37,58,.9);
+      --surface-2: rgba(20,43,67,.95);
+      --text: #f7fafc;
+      --muted: #a9bfd8;
+      --accent: #b2f34b;
+      --accent-2: #9ee43c;
+      --danger: #ff6b6b;
+      --border: rgba(180,205,230,.14);
+      --radius: 16px;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select {
+      font-family: inherit;
+      font-size: 0.95rem;
+    }
+
+    /* ===== LOGIN ===== */
+    #loginScreen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: linear-gradient(160deg, #0b1a2b 0%, #122c48 100%);
+    }
+    .login-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 40px 36px;
+      width: 100%;
+      max-width: 420px;
+      box-shadow: 0 25px 60px rgba(0,0,0,.35);
+    }
+    .login-card h1 {
+      font-size: 1.6rem;
+      margin-bottom: 6px;
+      font-weight: 800;
+    }
+    .login-card p {
+      color: var(--muted);
+      margin-bottom: 28px;
+      font-size: 0.95rem;
+    }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 7px;
+    }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,.06);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 13px 16px;
+      color: var(--text);
+      outline: none;
+      transition: .2s;
+    }
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: var(--accent);
+      background: rgba(178,243,75,.06);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 22px;
+      border-radius: 999px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: .2s;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #16210c;
+      width: 100%;
+    }
+    .btn-primary:hover { background: var(--accent-2); transform: translateY(-1px); }
+    .btn-primary:disabled { opacity: .55; cursor: not-allowed; transform: none; }
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-danger {
+      background: rgba(255,107,107,.15);
+      color: var(--danger);
+      border: 1px solid rgba(255,107,107,.3);
+    }
+    .btn-danger:hover { background: rgba(255,107,107,.25); }
+    .btn-sm { padding: 8px 14px; font-size: 0.82rem; }
+    .error-msg {
+      background: rgba(255,107,107,.12);
+      color: var(--danger);
+      padding: 12px 16px;
+      border-radius: 12px;
+      margin-bottom: 18px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+
+    /* ===== DASHBOARD LAYOUT ===== */
+    #dashboard { display: none; min-height: 100vh; }
+    .sidebar {
+      position: fixed;
+      left: 0; top: 0; bottom: 0;
+      width: 260px;
+      background: var(--bg-deep);
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+      transition: transform .3s;
+    }
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 10px 24px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+    .sidebar-brand img { height: 36px; }
+    .sidebar-brand span { font-weight: 800; font-size: 1.05rem; }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: var(--muted);
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: .15s;
+      margin-bottom: 4px;
+    }
+    .nav-item:hover, .nav-item.active {
+      background: rgba(178,243,75,.1);
+      color: var(--accent);
+    }
+    .sidebar-footer {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .main {
+      margin-left: 260px;
+      padding: 32px 36px 60px;
+      max-width: 1100px;
+    }
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .page-header h2 {
+      font-size: 1.55rem;
+      font-weight: 800;
+    }
+    .page-header p { color: var(--muted); font-size: 0.92rem; margin-top: 4px; }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    .card h3 {
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 700px) { .grid-2 { grid-template-columns: 1fr; } }
+
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    /* Image grid */
+    .img-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 14px;
+    }
+    .img-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 1;
+      background: rgba(0,0,0,.3);
+      border: 1px solid var(--border);
+    }
+    .img-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .img-item .actions {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,.85));
+      padding: 28px 10px 10px;
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+      opacity: 0;
+      transition: .2s;
+    }
+    .img-item:hover .actions { opacity: 1; }
+    .img-item .caption {
+      position: absolute;
+      top: 8px; left: 8px; right: 8px;
+      font-size: 0.72rem;
+      background: rgba(0,0,0,.6);
+      padding: 4px 8px;
+      border-radius: 6px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* List items (rules, birthday, struktur) */
+    .list-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin-bottom: 8px;
+    }
+    .list-item .info { flex: 1; }
+    .list-item .info strong { display: block; font-size: 0.95rem; }
+    .list-item .info span { color: var(--muted); font-size: 0.82rem; }
+    .list-item .btns { display: flex; gap: 6px; }
+
+    .upload-zone {
+      border: 2px dashed var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: .2s;
+      margin-bottom: 20px;
+    }
+    .upload-zone:hover, .upload-zone.dragover {
+      border-color: var(--accent);
+      background: rgba(178,243,75,.05);
+    }
+    .upload-zone input { display: none; }
+    .upload-zone p { color: var(--muted); margin-top: 8px; font-size: 0.9rem; }
+
+    .toast {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      background: var(--accent);
+      color: #16210c;
+      padding: 14px 22px;
+      border-radius: 14px;
+      font-weight: 700;
+      box-shadow: 0 12px 30px rgba(0,0,0,.3);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: .3s;
+      z-index: 999;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+    .toast.error { background: var(--danger); color: #fff; }
+
+    .loading-overlay {
+      position: fixed; inset: 0;
+      background: rgba(8,21,34,.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      backdrop-filter: blur(4px);
+    }
+    .loading-overlay.show { display: flex; }
+    .spinner {
+      width: 42px; height: 42px;
+      border: 3px solid rgba(255,255,255,.15);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .mobile-toggle {
+      display: none;
+      position: fixed;
+      top: 16px; left: 16px;
+      z-index: 60;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      font-size: 1.3rem;
+      cursor: pointer;
+    }
+    @media (max-width: 860px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main { margin-left: 0; padding: 70px 18px 40px; }
+      .mobile-toggle { display: flex; align-items: center; justify-content: center; }
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: rgba(178,243,75,.15);
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADING -->
+  <div class="loading-overlay" id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast"></div>
+
+  <!-- ===== LOGIN ===== -->
+  <div id="loginScreen">
+    <div class="login-card">
+      <h1>Admin Dashboard</h1>
+      <p>XII TJKT — SMK Muhammadiyah 1 Pringsewu</p>
+      <div class="error-msg" id="loginError"></div>
+      <form id="loginForm">
+        <div class="form-group">
+          <label>Email Admin</label>
+          <input type="email" id="email" required placeholder="admin@email.com" autocomplete="username">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="password" required placeholder="••••••••" autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary" id="loginBtn">Masuk</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===== DASHBOARD ===== -->
+  <div id="dashboard">
+    <button class="mobile-toggle" id="menuToggle">☰</button>
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <img src="assets/logo-tjkt.png" alt="Logo">
+        <span>Admin TJKT</span>
+      </div>
+
+      <div class="nav-item active" data-panel="hero">🏠 Hero & Tentang</div>
+      <div class="nav-item" data-panel="struktur">👥 Struktur Kelas</div>
+      <div class="nav-item" data-panel="rules">📋 Rules</div>
+      <div class="nav-item" data-panel="birthday">🎂 Birthday</div>
+      <div class="nav-item" data-panel="faq">❓ FAQ</div>
+      <div class="nav-item" data-panel="galeri">🖼️ Galeri</div>
+      <div class="nav-item" data-panel="album">📸 Album</div>
+      <div class="nav-item" data-panel="sosmed">🔗 Media Sosial</div>
+      <div class="nav-item" data-panel="settings">⚙️ Pengaturan</div>
+
+      <div class="sidebar-footer">
+        <div class="nav-item" id="logoutBtn" style="color:var(--danger)">🚪 Keluar</div>
+        <a href="index.html" target="_blank" class="nav-item" style="margin-top:6px">↗ Lihat Website</a>
+      </div>
+    </aside>
+
+    <main class="main">
+
+      <!-- HERO & TENTANG -->
+      <div class="panel active" id="panel-hero">
+        <div class="page-header">
+          <div>
+            <h2>Hero & Tentang</h2>
+            <p>Teks beranda dan section tentang kelas</p>
+          </div>
+          <button class="btn btn-primary" onclick="saveHero()">💾 Simpan</button>
+        </div>
+
+        <div class="card">
+          <h3>Hero Section</h3>
+          <div class="form-group">
+            <label>Badge</label>
+            <input type="text" id="heroBadge" placeholder="Teknologi • Kreativitas • Islam berkemajuan">
+          </div>
+          <div class="form-group">
+            <label>Judul Utama</label>
+            <input type="text" id="heroTitle" placeholder="Selamat Datang di Website XII TJKT">
+          </div>
+          <div class="form-group">
+            <label>Sub Judul (Sekolah)</label>
+            <input type="text" id="heroSub" placeholder="SMK Muhammadiyah 1 Pringsewu">
+          </div>
+          <div class="form-group">
+            <label>Motto / Deskripsi Hero</label>
+            <textarea id="heroMotto" rows="3"></textarea>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Fitur Hero (4 kartu)</h3>
+          <div class="grid-2">
+            <div class="form-group"><label>Fitur 1 - Judul</label><input id="feat1Title"></div>
+            <div class="form-group"><label>Fitur 1 - Deskripsi</label><input id="feat1Desc"></div>
+            <div class="form-group"><label>Fitur 2 - Judul</label><input id="feat2Title"></div>
+            <div class="form-group"><label>Fitur 2 - Deskripsi</label><input id="feat2Desc"></div>
+            <div class="form-group"><label>Fitur 3 - Judul</label><input id="feat3Title"></div>
+            <div class="form-group"><label>Fitur 3 - Deskripsi</label><input id="feat3Desc"></div>
+            <div class="form-group"><label>Fitur 4 - Judul</label><input id="feat4Title"></div>
+            <div class="form-group"><label>Fitur 4 - Deskripsi</label><input id="feat4Desc"></div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Section Tentang</h3>
+          <div class="form-group">
+            <label>Judul</label>
+            <input type="text" id="aboutTitle">
+          </div>
+          <div class="form-group">
+            <label>Deskripsi</label>
+            <input type="text" id="aboutDesc">
+          </div>
+          <div class="grid-2">
+            <div class="form-group"><label>Stat 1 - Angka</label><input id="stat1Num"></div>
+            <div class="form-group"><label>Stat 1 - Label</label><input id="stat1Label"></div>
+            <div class="form-group"><label>Stat 2 - Angka</label><input id="stat2Num"></div>
+            <div class="form-group"><label>Stat 2 - Label</label><input id="stat2Label"></div>
+            <div class="form-group"><label>Stat 3 - Angka</label><input id="stat3Num"></div>
+            <div class="form-group"><label>Stat 3 - Label</label><input id="stat3Label"></div>
+            <div class="form-group"><label>Stat 4 - Angka</label><input id="stat4Num"></div>
+            <div class="form-group"><label>Stat 4 - Label</label><input id="stat4Label"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STRUKTUR -->
+      <div class="panel" id="panel-struktur">
+        <div class="page-header">
+          <div>
+            <h2>Struktur Kelas</h2>
+            <p>Wali kelas, ketua, dan pengurus</p>
+          </div>
+          <button class="btn btn-primary" onclick="saveStruktur()">💾 Simpan</button>
+        </div>
+        <div class="card">
+          <h3>Wali Kelas & Ketua</h3>
+          <div class="grid-2">
+            <div class="form-group"><label>Wali Kelas - Nama</label><input id="waliNama"></div>
+            <div class="form-group"><label>Wali Kelas - Inisial</label><input id="waliInisial" maxlength="3"></div>
+            <div class="form-group"><label>Ketua Kelas - Nama</label><input id="ketuaNama"></div>
+            <div class="form-group"><label>Ketua Kelas - Inisial</label><input id="ketuaInisial" maxlength="3"></div>
+            <div class="form-group"><label>Wakil 1 - Nama</label><input id="wakil1Nama"></div>
+            <div class="form-group"><label>Wakil 1 - Inisial</label><input id="wakil1Inisial" maxlength="3"></div>
+            <div class="form-group"><label>Wakil 2 - Nama</label><input id="wakil2Nama"></div>
+            <div class="form-group"><label>Wakil 2 - Inisial</label><input id="wakil2Inisial" maxlength="3"></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Sekretaris & Bendahara</h3>
+          <div class="grid-2">
+            <div class="form-group"><label>Sekretaris 1 - Nama</label><input id="sek1Nama"></div>
+            <div class="form-group"><label>Sekretaris 1 - Inisial</label><input id="sek1Inisial" maxlength="3"></div>
+            <div class="form-group"><label>Sekretaris 2 - Nama</label><input id="sek2Nama"></div>
+            <div class="form-group"><label>Sekretaris 2 - Inisial</label><input id="sek2Inisial" maxlength="3"></div>
+            <div class="form-group"><label>Bendahara 1 - Nama</label><input id="ben1Nama"></div>
+            <div class="form-group"><label>Bendahara 1 - Inisial</label><input id="ben1Inisial" maxlength="3"></div>
+            <div class="form-group"><label>Bendahara 2 - Nama</label><input id="ben2Nama"></div>
+            <div class="form-group"><label>Bendahara 2 - Inisial</label><input id="ben2Inisial" maxlength="3"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- RULES -->
+      <div class="panel" id="panel-rules">
+        <div class="page-header">
+          <div>
+            <h2>Rules Grup Kelas</h2>
+            <p>Daftar peraturan yang ditampilkan di website</p>
+          </div>
+          <button class="btn btn-primary" onclick="addRule()">+ Tambah Rule</button>
+        </div>
+        <div class="card">
+          <div id="rulesList"></div>
+          <button class="btn btn-primary" style="margin-top:16px" onclick="saveRules()">💾 Simpan Rules</button>
+        </div>
+      </div>
+
+      <!-- BIRTHDAY -->
+      <div class="panel" id="panel-birthday">
+        <div class="page-header">
+          <div>
+            <h2>Data Birthday</h2>
+            <p>Daftar ulang tahun siswa</p>
+          </div>
+          <button class="btn btn-primary" onclick="addBirthday()">+ Tambah</button>
+        </div>
+        <div class="card">
+          <div id="birthdayList"></div>
+          <button class="btn btn-primary" style="margin-top:16px" onclick="saveBirthday()">💾 Simpan Birthday</button>
+        </div>
+      </div>
+
+      <!-- FAQ -->
+      <div class="panel" id="panel-faq">
+        <div class="page-header">
+          <div>
+            <h2>FAQ</h2>
+            <p>Pertanyaan yang sering diajukan</p>
+          </div>
+          <button class="btn btn-primary" onclick="addFaq()">+ Tambah FAQ</button>
+        </div>
+        <div class="card">
+          <div id="faqList"></div>
+          <button class="btn btn-primary" style="margin-top:16px" onclick="saveFaq()">💾 Simpan FAQ</button>
+        </div>
+      </div>
+
+      <!-- GALERI -->
+      <div class="panel" id="panel-galeri">
+        <div class="page-header">
+          <div>
+            <h2>Galeri</h2>
+            <p>Foto yang tampil di section Galeri website</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="upload-zone" id="galeriUploadZone">
+            <div style="font-size:2rem">📷</div>
+            <p>Klik atau drag & drop foto di sini<br><small>JPG, PNG, WEBP • Max 5MB per file</small></p>
+            <input type="file" id="galeriInput" accept="image/*" multiple>
+          </div>
+          <div class="form-group">
+            <label>Caption (opsional, untuk foto yang akan diupload)</label>
+            <input type="text" id="galeriCaption" placeholder="Contoh: Praktik Jaringan">
+          </div>
+          <div class="img-grid" id="galeriGrid"></div>
+        </div>
+      </div>
+
+      <!-- ALBUM -->
+      <div class="panel" id="panel-album">
+        <div class="page-header">
+          <div>
+            <h2>Album</h2>
+            <p>Foto yang tampil di section Album website</p>
+          </div>
+        </div>
+        <div class="card">
+          <div class="upload-zone" id="albumUploadZone">
+            <div style="font-size:2rem">🖼️</div>
+            <p>Klik atau drag & drop foto di sini<br><small>JPG, PNG, WEBP • Max 5MB per file</small></p>
+            <input type="file" id="albumInput" accept="image/*" multiple>
+          </div>
+          <div class="form-group">
+            <label>Caption (opsional)</label>
+            <input type="text" id="albumCaption" placeholder="Contoh: Hari Pertama">
+          </div>
+          <div class="img-grid" id="albumGrid"></div>
+        </div>
+      </div>
+
+      <!-- SOSMED -->
+      <div class="panel" id="panel-sosmed">
+        <div class="page-header">
+          <div>
+            <h2>Media Sosial</h2>
+            <p>Link Instagram & WhatsApp</p>
+          </div>
+          <button class="btn btn-primary" onclick="saveSosmed()">💾 Simpan</button>
+        </div>
+        <div class="card">
+          <div class="form-group">
+            <label>Instagram Username</label>
+            <input type="text" id="igUsername" placeholder="@xii_tejekatee">
+          </div>
+          <div class="form-group">
+            <label>Instagram URL</label>
+            <input type="url" id="igUrl" placeholder="https://www.instagram.com/...">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp Channel Title</label>
+            <input type="text" id="waTitle" placeholder="Saluran WhatsApp XII TJKT">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp Channel URL</label>
+            <input type="url" id="waUrl" placeholder="https://whatsapp.com/channel/...">
+          </div>
+        </div>
+      </div>
+
+      <!-- SETTINGS -->
+      <div class="panel" id="panel-settings">
+        <div class="page-header">
+          <div>
+            <h2>Pengaturan</h2>
+            <p>Logo, background, dan data seed</p>
+          </div>
+        </div>
+        <div class="card">
+          <h3>Upload Logo</h3>
+          <input type="file" id="logoInput" accept="image/*" style="margin-bottom:12px">
+          <div id="logoPreview" style="margin-top:12px"></div>
+          <button class="btn btn-primary btn-sm" style="margin-top:10px" onclick="uploadLogo()">Upload Logo</button>
+        </div>
+        <div class="card">
+          <h3>Upload Background</h3>
+          <input type="file" id="bgInput" accept="image/*" style="margin-bottom:12px">
+          <button class="btn btn-primary btn-sm" onclick="uploadBackground()">Upload Background</button>
+        </div>
+        <div class="card">
+          <h3>Inisialisasi Data Awal</h3>
+          <p style="color:var(--muted);margin-bottom:14px;font-size:0.9rem">
+            Klik tombol di bawah jika ini pertama kali setup. Data default dari website asli akan dimasukkan ke Firestore.
+          </p>
+          <button class="btn btn-outline" onclick="seedDefaultData()">🌱 Seed Data Default</button>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-storage-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+</html>
